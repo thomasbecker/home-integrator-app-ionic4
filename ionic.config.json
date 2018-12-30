@@ -1,5 +1,7 @@
 {
   "name": "home-integrator-app-i4",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

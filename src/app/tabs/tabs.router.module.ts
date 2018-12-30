@@ -13,7 +13,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: '../pages/current-power/current-power.module#CurrentPowerPageModule'
+            loadChildren: '../pages/power/current-power/current-power.module#CurrentPowerPageModule'
           }
         ]
       },
@@ -22,16 +22,61 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: '../pages/power-trend/power-trend.module#PowerTrendPageModule'
+            loadChildren: '../pages/power/power-trend/power-trend.module#PowerTrendPageModule'
           }
         ]
       },
       {
-        path: 'tab3',
+        path: 'current-temperature',
         children: [
           {
             path: '',
-            loadChildren: '../tab3/tab3.module#Tab3PageModule'
+            loadChildren: '../pages/temperature/current-temperature/current-temperature.module#CurrentTemperaturePageModule'
+          }
+        ]
+      },
+      {
+        path: 'temperature-trend',
+        children: [
+          {
+            path: '',
+            loadChildren: '../pages/temperature/temperature-trend/temperature-trend.module#TemperatureTrendPageModule'
+          }
+        ]
+      },
+      {
+        path: 'co2-trend',
+        children: [
+          {
+            path: '',
+            loadChildren: '../pages/co2/co2-trend/co2-trend.module#Co2TrendPageModule'
+          }
+        ]
+      },
+      {
+        path: 'current-co2',
+        children: [
+          {
+            path: '',
+            loadChildren: '../pages/co2/current-co2/current-co2.module#CurrentCo2PageModule'
+          }
+        ]
+      },
+      {
+        path: 'current-humidity',
+        children: [
+          {
+            path: '',
+            loadChildren: '../pages/humidity/current-humidity/current-humidity.module#CurrentHumidityPageModule'
+          }
+        ]
+      },
+      {
+        path: 'humidity-trend',
+        children: [
+          {
+            path: '',
+            loadChildren: '../pages/humidity/humidity-trend/humidity-trend.module#HumidityTrendPageModule'
           }
         ]
       },

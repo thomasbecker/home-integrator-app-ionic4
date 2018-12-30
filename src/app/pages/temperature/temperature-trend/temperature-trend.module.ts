@@ -3,8 +3,8 @@ import {RouterModule} from '@angular/router';
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {PowerTrendPage} from './power-trend.page';
-import {ComponentsModule} from '../../components/components.module';
+import {ComponentsModule} from '../../../components/components.module';
+import {TemperatureTrendPage} from './temperature-trend.page';
 
 @NgModule({
     imports: [
@@ -12,9 +12,9 @@ import {ComponentsModule} from '../../components/components.module';
         CommonModule,
         FormsModule,
         ComponentsModule,
-        RouterModule.forChild([{path: '', component: PowerTrendPage}])
+        RouterModule.forChild([{path: '', component: TemperatureTrendPage}])
     ],
-    declarations: [PowerTrendPage]
+    declarations: [TemperatureTrendPage]
 })
-export class PowerTrendPageModule {
+export class TemperatureTrendPageModule {
 }
