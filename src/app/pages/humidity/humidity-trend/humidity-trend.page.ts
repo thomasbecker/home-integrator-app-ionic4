@@ -10,16 +10,15 @@ import {CommonHighChartsSettings} from '../../CommonHighChartsSettings';
     styleUrls: ['humidity-trend.page.scss']
 })
 export class HumidityTrendPage implements OnInit {
+    private msgCount = 0;
+    private humidityTrendChart;
+    private homeEnvironmentData: Subscription;
+    private living = [];
+    private sleeping = [];
+    private preloading = true;
 
     constructor(private dataProvider: DataProviderWs) {
-
     }
-
-    msgCount = 0;
-    humidityTrendChart;
-    homeEnvironmentData: Subscription;
-    living = [];
-    sleeping = [];
 
     private static getSeries() {
         return [{
@@ -65,6 +64,7 @@ export class HumidityTrendPage implements OnInit {
         this.msgCount = 0;
         this.sleeping = [];
         this.living = [];
+        this.preloading = true;
         this.humidityTrendChart.update({
             series: HumidityTrendPage.getSeries()
         });
@@ -79,16 +79,17 @@ export class HumidityTrendPage implements OnInit {
             const date = msg.date.getTime();
             this.msgCount++;
             console.log('adding: ' + date);
-            if (this.msgCount < 40) {
+            if (msg.officeTemp === 9999.0) {
+                console.log('Terminator found, setting data and rendering chart');
+                this.preloading = false;
+                this.humidityTrendChart.series[0].setData(this.living, true);
+                this.humidityTrendChart.series[1].setData(this.sleeping, true);
+            } else if (this.preloading) {
                 this.living.push([date, msg.livingRoomHumidity]);
                 this.sleeping.push([date, msg.sleepingRoomHumidity]);
             } else {
                 this.humidityTrendChart.series[0].addPoint([date, msg.livingRoomHumidity]);
                 this.humidityTrendChart.series[1].addPoint([date, msg.sleepingRoomHumidity]);
-            }
-            if (this.msgCount === 40) {
-                this.humidityTrendChart.series[0].setData(this.living, true);
-                this.humidityTrendChart.series[1].setData(this.sleeping, true);
             }
         });
     }

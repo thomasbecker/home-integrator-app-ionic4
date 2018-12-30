@@ -12,12 +12,13 @@ import {CommonHighChartsSettings} from '../../CommonHighChartsSettings';
 })
 export class TemperatureTrendPage implements OnInit {
 
-    msgCount = 0;
-    tempChart;
-    homeEnvironmentData: Subscription;
-    office = [];
-    living = [];
-    sleeping = [];
+    private msgCount = 0;
+    private tempChart;
+    private homeEnvironmentData: Subscription;
+    private office = [];
+    private living = [];
+    private sleeping = [];
+    private preloading = true;
 
     constructor(private dataProvider: DataProviderWs) {
     }
@@ -64,7 +65,6 @@ export class TemperatureTrendPage implements OnInit {
 
         this.tempChart = chart('temptrendchart', areaChartOptions);
         this.subscribeDataProvider();
-
     }
 
     public changeHistoryHours(hours: number) {
@@ -72,6 +72,7 @@ export class TemperatureTrendPage implements OnInit {
         this.office = [];
         this.living = [];
         this.sleeping = [];
+        this.preloading = true;
         this.tempChart.update({
             series: TemperatureTrendPage.getSeries()
         });
@@ -87,7 +88,13 @@ export class TemperatureTrendPage implements OnInit {
                 const date = msg.date.getTime();
                 console.log('adding: ' + date);
                 this.msgCount++;
-                if (this.msgCount < 40) {
+                if (msg.officeTemp === 9999.0) {
+                    console.log('Terminator found, setting data and rendering chart');
+                    this.preloading = false;
+                    this.tempChart.series[0].setData(this.office, true);
+                    this.tempChart.series[1].setData(this.living, true);
+                    this.tempChart.series[2].setData(this.sleeping, true);
+                } else if (this.preloading) {
                     this.office.push([date, msg.officeTemp]);
                     this.living.push([date, msg.livingRoomTemp]);
                     this.sleeping.push([date, msg.sleepingRoomTemp]);
@@ -95,11 +102,6 @@ export class TemperatureTrendPage implements OnInit {
                     this.tempChart.series[0].addPoint([date, msg.officeTemp]);
                     this.tempChart.series[1].addPoint([date, msg.livingRoomTemp]);
                     this.tempChart.series[2].addPoint([date, msg.sleepingRoomTemp]);
-                }
-                if (this.msgCount === 40) {
-                    this.tempChart.series[0].setData(this.office, true);
-                    this.tempChart.series[1].setData(this.living, true);
-                    this.tempChart.series[2].setData(this.sleeping, true);
                 }
             });
     }

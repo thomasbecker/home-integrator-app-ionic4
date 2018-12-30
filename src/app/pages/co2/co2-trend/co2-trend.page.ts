@@ -11,11 +11,12 @@ import {CommonHighChartsSettings} from '../../CommonHighChartsSettings';
     styleUrls: ['co2-trend.page.scss']
 })
 export class Co2TrendPage implements OnInit {
-    msgCount = 0;
-    co2TrendChart;
-    homeEnvironmentData: Subscription;
-    living = [];
-    sleeping = [];
+    private msgCount = 0;
+    private co2TrendChart;
+    private homeEnvironmentData: Subscription;
+    private living = [];
+    private sleeping = [];
+    private preloading = true;
 
     constructor(private dataProvider: DataProviderWs) {
     }
@@ -66,6 +67,7 @@ export class Co2TrendPage implements OnInit {
         this.msgCount = 0;
         this.living = [];
         this.sleeping = [];
+        this.preloading = true;
         this.co2TrendChart.update({
             series: Co2TrendPage.getSeries()
         });
@@ -82,16 +84,17 @@ export class Co2TrendPage implements OnInit {
                 const date = msg.date.getTime();
                 this.msgCount++;
                 console.log('adding: ' + date);
-                if (this.msgCount < 40) {
+                if (msg.officeTemp === 9999.0) {
+                    console.log('Terminator found, setting data and rendering chart');
+                    this.preloading = false;
+                    this.co2TrendChart.series[0].setData(this.living, true);
+                    this.co2TrendChart.series[1].setData(this.sleeping, true);
+                } else if (this.preloading) {
                     this.living.push([date, msg.livingRoomCo2]);
                     this.sleeping.push([date, msg.sleepingRoomCo2]);
                 } else {
                     this.co2TrendChart.series[0].addPoint([date, msg.livingRoomCo2]);
                     this.co2TrendChart.series[1].addPoint([date, msg.sleepingRoomCo2]);
-                }
-                if (this.msgCount === 40) {
-                    this.co2TrendChart.series[0].setData(this.living, true);
-                    this.co2TrendChart.series[1].setData(this.sleeping, true);
                 }
             });
 

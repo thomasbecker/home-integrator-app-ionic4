@@ -1,13 +1,11 @@
 power-trend {
-  #powerbarchart {
+  #powertrendchart {
     min-width: 310px;
-    max-width: 800px;
-    height: 400px;
-    margin: 0 auto
+    width: 200px;
+    margin: 0 auto;
+    display: block;
   }
 
   .highcharts-container{
-    width:100% !important;
-    display:block;
   }
 }

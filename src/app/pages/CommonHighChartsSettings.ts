@@ -5,7 +5,7 @@ export class CommonHighChartsSettings {
                 fillOpacity: 0.1,
                 dataLabels: {
                     format: '{point.y:.2f}',
-                    enabled: true,
+                    enabled: false,
                     allowOverlap: false,
                     shadow: false,
                     style: {

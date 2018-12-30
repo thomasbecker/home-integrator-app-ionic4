@@ -10,7 +10,7 @@
   Power Consumption Trend
   <div id="content">
     <history-buttons (changeHistoryHoursEvent)="changeHistoryHours($event)"></history-buttons>
-    <div id="chart"></div>
+    <div id="powertrendchart"></div>
     <button (click)="showDebug = !showDebug">debug</button>
     <div id="debug">msgs: {{msgCount}}<!--*ngIf="!showDebug"--> {{lastMessage.date}} heat: {{lastMessage.heatpumpConsumption}} grid: {{lastMessage.powerGrid}}
       load: {{lastMessage.powerLoad}} pv: {{lastMessage.powerPv}}</div>
