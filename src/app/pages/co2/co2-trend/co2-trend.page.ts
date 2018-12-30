@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {chart} from 'highcharts';
 import {DataProviderWs} from '../../../dataProviderWs';
 import {Subscription} from 'rxjs';
+import {CommonHighChartsSettings} from '../../CommonHighChartsSettings';
 
 
 @Component({
@@ -11,8 +12,10 @@ import {Subscription} from 'rxjs';
 })
 export class Co2TrendPage implements OnInit {
     msgCount = 0;
-    myChart;
+    co2TrendChart;
     homeEnvironmentData: Subscription;
+    living = [];
+    sleeping = [];
 
     constructor(private dataProvider: DataProviderWs) {
     }
@@ -50,25 +53,20 @@ export class Co2TrendPage implements OnInit {
                 selected: 1
             },
             animation: false,
-            plotOptions: {
-                series: {
-                    fillOpacity: 0.1,
-                    dataLabels: {
-                        enabled: true
-                    }
-                }
-            },
+            plotOptions: CommonHighChartsSettings.getTrendPlotOptions(),
             series: Co2TrendPage.getSeries()
         };
 
-        this.myChart = chart('co2trendchart', areaChartOptions);
+        this.co2TrendChart = chart('co2trendchart', areaChartOptions);
 
         this.subscribeDataProvider();
     }
 
     changeHistoryHours(hours: number) {
         this.msgCount = 0;
-        this.myChart.update({
+        this.living = [];
+        this.sleeping = [];
+        this.co2TrendChart.update({
             series: Co2TrendPage.getSeries()
         });
         this.subscribeDataProvider(this.dataProvider.getTimestampOfNowSubstracting(hours));
@@ -84,8 +82,17 @@ export class Co2TrendPage implements OnInit {
                 const date = msg.date.getTime();
                 this.msgCount++;
                 console.log('adding: ' + date);
-                this.myChart.series[0].addPoint([date, msg.livingRoomCo2]);
-                this.myChart.series[1].addPoint([date, msg.sleepingRoomCo2]);
+                if (this.msgCount < 40) {
+                    this.living.push([date, msg.livingRoomCo2]);
+                    this.sleeping.push([date, msg.sleepingRoomCo2]);
+                } else {
+                    this.co2TrendChart.series[0].addPoint([date, msg.livingRoomCo2]);
+                    this.co2TrendChart.series[1].addPoint([date, msg.sleepingRoomCo2]);
+                }
+                if (this.msgCount === 40) {
+                    this.co2TrendChart.series[0].setData(this.living, true);
+                    this.co2TrendChart.series[1].setData(this.sleeping, true);
+                }
             });
 
     }

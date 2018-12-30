@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {chart} from 'highcharts';
 import {DataProviderWs} from '../../../dataProviderWs';
 import {Subscription} from 'rxjs';
+import {CommonHighChartsSettings} from '../../CommonHighChartsSettings';
 
 @Component({
     selector: 'humidity-trend',
@@ -15,8 +16,10 @@ export class HumidityTrendPage implements OnInit {
     }
 
     msgCount = 0;
-    myChart;
+    humidityTrendChart;
     homeEnvironmentData: Subscription;
+    living = [];
+    sleeping = [];
 
     private static getSeries() {
         return [{
@@ -50,24 +53,19 @@ export class HumidityTrendPage implements OnInit {
             rangeSelector: {
                 selected: 1
             },
-            plotOptions: {
-                series: {
-                    fillOpacity: 0.1,
-                    dataLabels: {
-                        enabled: true
-                    }
-                }
-            },
+            plotOptions: CommonHighChartsSettings.getTrendPlotOptions(),
             series: HumidityTrendPage.getSeries()
         };
 
-        this.myChart = chart('humiditytrendchart', areaChartOptions);
+        this.humidityTrendChart = chart('humiditytrendchart', areaChartOptions);
         this.subscribeDataProvider();
     }
 
     changeHistoryHours(hours: number) {
         this.msgCount = 0;
-        this.myChart.update({
+        this.sleeping = [];
+        this.living = [];
+        this.humidityTrendChart.update({
             series: HumidityTrendPage.getSeries()
         });
         this.subscribeDataProvider(this.dataProvider.getTimestampOfNowSubstracting(hours));
@@ -81,8 +79,17 @@ export class HumidityTrendPage implements OnInit {
             const date = msg.date.getTime();
             this.msgCount++;
             console.log('adding: ' + date);
-            this.myChart.series[0].addPoint([date, msg.livingRoomHumidity]);
-            this.myChart.series[1].addPoint([date, msg.sleepingRoomHumidity]);
+            if (this.msgCount < 40) {
+                this.living.push([date, msg.livingRoomHumidity]);
+                this.sleeping.push([date, msg.sleepingRoomHumidity]);
+            } else {
+                this.humidityTrendChart.series[0].addPoint([date, msg.livingRoomHumidity]);
+                this.humidityTrendChart.series[1].addPoint([date, msg.sleepingRoomHumidity]);
+            }
+            if (this.msgCount === 40) {
+                this.humidityTrendChart.series[0].setData(this.living, true);
+                this.humidityTrendChart.series[1].setData(this.sleeping, true);
+            }
         });
     }
 }

@@ -1,11 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {chart} from 'highcharts';
 import {boost} from 'highcharts/modules/boost';
-import * as Moment from 'moment';
-import * as mTZ from 'moment-timezone';
 
 import {DataProviderWs, HomePowerData} from '../../../dataProviderWs';
 import {Subscription} from 'rxjs';
+import {CommonHighChartsSettings} from '../../CommonHighChartsSettings';
 
 @Component({
     selector: 'power-trend',
@@ -15,19 +14,17 @@ import {Subscription} from 'rxjs';
 export class PowerTrendPage implements OnInit {
 
     constructor(private dataProvider: DataProviderWs) {
-        Moment.locales();
-        mTZ();
     }
 
     @Input() lastMessage: HomePowerData = new HomePowerData();
     showDebug = false;
     msgCount = 0;
-    myChart;
+    powerTrendChart;
     homePowerData: Subscription;
-    heatBuffer = new Array();
-    loadBuffer = new Array();
-    pvBuffer = new Array();
-    gridBuffer = new Array();
+    heatBuffer = [];
+    loadBuffer = [];
+    pvBuffer = [];
+    gridBuffer = [];
 
     private static getSeries() {
         return [{
@@ -68,8 +65,6 @@ export class PowerTrendPage implements OnInit {
             },
             chart: {
                 type: 'areaspline',
-                // width: '100%',
-                // height: '100%',
                 zoomType: 'x'
             },
             xAxis: {
@@ -93,28 +88,14 @@ export class PowerTrendPage implements OnInit {
             rangeSelector: {
                 selected: 1
             },
-            plotOptions: {
-                series: {
-                    fillOpacity: 0.1,
-                    dataLabels: {
-                        format: '{point.y:.2f}',
-                        enabled: true,
-                        allowOverlap: false,
-                        shadow: false,
-                        style: {
-                            textOutline: null,
-                            color: 'black'
-                        }
-                    }
-                }
-            },
+            plotOptions: CommonHighChartsSettings.getTrendPlotOptions(),
             time: {
                 timezone: 'Europe/Berlin'
             },
             series: PowerTrendPage.getSeries()
         };
 
-        this.myChart = chart('chart', areaChartOptions);
+        this.powerTrendChart = chart('chart', areaChartOptions);
         this.subscribeDataProvider();
     }
 
@@ -134,27 +115,27 @@ export class PowerTrendPage implements OnInit {
                 this.pvBuffer.push([date, msg.powerPv]);
                 this.gridBuffer.push([date, msg.powerGrid]);
             } else {
-                this.myChart.series[0].addPoint([date, msg.heatpumpConsumption]);
-                this.myChart.series[1].addPoint([date, msg.powerLoad]);
-                this.myChart.series[2].addPoint([date, msg.powerPv]);
-                this.myChart.series[3].addPoint([date, msg.powerGrid]);
+                this.powerTrendChart.series[0].addPoint([date, msg.heatpumpConsumption]);
+                this.powerTrendChart.series[1].addPoint([date, msg.powerLoad]);
+                this.powerTrendChart.series[2].addPoint([date, msg.powerPv]);
+                this.powerTrendChart.series[3].addPoint([date, msg.powerGrid]);
             }
             if (this.msgCount === 40) {
-                this.myChart.series[0].setData(this.heatBuffer, true);
-                this.myChart.series[1].setData(this.loadBuffer, true);
-                this.myChart.series[2].setData(this.pvBuffer, true);
-                this.myChart.series[3].setData(this.gridBuffer, true);
+                this.powerTrendChart.series[0].setData(this.heatBuffer, true);
+                this.powerTrendChart.series[1].setData(this.loadBuffer, true);
+                this.powerTrendChart.series[2].setData(this.pvBuffer, true);
+                this.powerTrendChart.series[3].setData(this.gridBuffer, true);
             }
         });
     }
 
     changeHistoryHours(hours: number) {
         this.msgCount = 0;
-        this.heatBuffer = new Array();
-        this.loadBuffer = new Array();
-        this.pvBuffer = new Array();
-        this.gridBuffer = new Array();
-        this.myChart.update({
+        this.heatBuffer = [];
+        this.loadBuffer = [];
+        this.pvBuffer = [];
+        this.gridBuffer = [];
+        this.powerTrendChart.update({
             series: PowerTrendPage.getSeries()
         });
         this.subscribeDataProvider(this.dataProvider.getTimestampOfNowSubstracting(hours));
