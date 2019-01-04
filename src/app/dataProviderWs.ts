@@ -28,6 +28,10 @@ export class HomeEnvironmentData {
   sleepingRoomCo2: number;
   sleepingRoomTemp: number;
   sleepingRoomHumidity: number;
+  heatingLeading: number;
+  heatingInlet: number;
+  waterTankMiddle: number;
+  waterTankBottom: number;
 }
 
 @Injectable()
@@ -47,6 +51,10 @@ export class DataProviderWs {
     const sleepingRoomCo2 = parseFloat(data.sleepingRoomCo2.toFixed(2));
     const sleepingRoomTemp = parseFloat(data.sleepingRoomTemp.toFixed(2));
     const sleepingRoomHumidity = parseFloat(data.sleepingRoomHumidity.toFixed(2));
+    const heatingLeading = parseFloat(data.heatingLeading.toFixed(2));
+    const heatingInlet = parseFloat(data.heatingInlet.toFixed(2));
+    const waterTankMiddle = parseFloat(data.waterTankMiddle.toFixed(2));
+    const waterTankBottom = parseFloat(data.waterTankBottom.toFixed(2));
     return {
       date: date,
       officeTemp: officeTemp,
@@ -55,7 +63,11 @@ export class DataProviderWs {
       livingRoomHumidity: livingRoomHumidity,
       sleepingRoomCo2: sleepingRoomCo2,
       sleepingRoomTemp: sleepingRoomTemp,
-      sleepingRoomHumidity: sleepingRoomHumidity
+      sleepingRoomHumidity: sleepingRoomHumidity,
+      heatingLeading: heatingLeading,
+      heatingInlet: heatingInlet,
+      waterTankMiddle: waterTankMiddle,
+      waterTankBottom: waterTankBottom
     };
   }
 

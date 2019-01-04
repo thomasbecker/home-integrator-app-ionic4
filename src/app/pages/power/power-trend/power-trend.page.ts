@@ -29,30 +29,18 @@ export class PowerTrendPage implements OnInit {
 
     private static getSeries() {
         return [{
-            boostThreshold: 1,
-            boostDebug: true,
-            marker: false,
             name: 'Heatpump Power Consumption',
             color: '#ff0000',
             data: []
         }, {
-            boostThreshold: 1,
-            boostDebug: true,
-            marker: false,
             name: 'House Energy Consumption',
             color: '#0099ff',
             data: []
         }, {
-            boostThreshold: 1,
-            boostDebug: true,
-            marker: false,
             name: 'PV Production',
             color: '#66ff33',
             data: []
         }, {
-            boostThreshold: 1,
-            boostDebug: true,
-            marker: false,
             name: 'Power Grid',
             color: '#000000',
             data: []
@@ -67,8 +55,7 @@ export class PowerTrendPage implements OnInit {
                 },
                 chart: {
                     type: 'areaspline',
-                    zoomType: 'x',
-                    display: 'block'
+                    zoomType: 'x'
                 },
                 xAxis: {
                     type: 'datetime'
@@ -84,22 +71,10 @@ export class PowerTrendPage implements OnInit {
                         text: 'Watt'
                     }
                 },
-                responsive: {
-                    rules: [{
-                        condition: {
-                            maxWidth: 500
-                        },
-                        chartOptions: {
-                            legend: {
-                                enabled: false
-                            }
-                        }
-                    }]
-                },
-                boost: {
-                    useGPUTranslations: true,
-                    boostDebug: true
-                },
+                // boost: {
+                //     useGPUTranslations: true,
+                //     boostDebug: true
+                // },
                 rangeSelector: {
                     selected: 1
                 },
@@ -112,7 +87,7 @@ export class PowerTrendPage implements OnInit {
 
             this.powerTrendChart = chart('powertrendchart', areaChartOptions);
             this.subscribeDataProvider();
-        }, 30);
+        }, 200);
     }
 
     private subscribeDataProvider(newTimestampStartHistory = this.dataProvider.getTimestampOfNowSubstracting(4)) {

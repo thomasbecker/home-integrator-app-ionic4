@@ -33,31 +33,33 @@ export class HumidityTrendPage implements OnInit {
     }
 
     ngOnInit() {
-        const areaChartOptions = {
-            title: {
-                text: 'Humidity'
-            },
-            chart: {
-                type: 'areaspline',
-                zoomType: 'x'
-            },
-            xAxis: {
-                type: 'datetime'
-            },
-            yAxis: {
+        window.setTimeout(() => { // hack to get responsive width working on initial load
+            const areaChartOptions = {
                 title: {
-                    text: '%'
-                }
-            },
-            rangeSelector: {
-                selected: 1
-            },
-            plotOptions: CommonHighChartsSettings.getTrendPlotOptions(),
-            series: HumidityTrendPage.getSeries()
-        };
+                    text: 'Humidity'
+                },
+                chart: {
+                    type: 'areaspline',
+                    zoomType: 'x'
+                },
+                xAxis: {
+                    type: 'datetime'
+                },
+                yAxis: {
+                    title: {
+                        text: '%'
+                    }
+                },
+                rangeSelector: {
+                    selected: 1
+                },
+                plotOptions: CommonHighChartsSettings.getTrendPlotOptions(),
+                series: HumidityTrendPage.getSeries()
+            };
 
-        this.humidityTrendChart = chart('humiditytrendchart', areaChartOptions);
-        this.subscribeDataProvider();
+            this.humidityTrendChart = chart('humiditytrendchart', areaChartOptions);
+            this.subscribeDataProvider();
+        }, 30);
     }
 
     changeHistoryHours(hours: number) {

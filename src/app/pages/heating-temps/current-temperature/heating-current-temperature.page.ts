@@ -1,28 +1,27 @@
 import {Component, OnInit} from '@angular/core';
-import {NavController} from '@ionic/angular';
 import {chart} from 'highcharts';
 import {DataProviderWs} from '../../../dataProviderWs';
 
 
 @Component({
-    selector: 'current-humidity',
-    templateUrl: 'current-humidity.page.html',
-    styleUrls: ['current-humidity.page.scss']
+    selector: 'heating-current-temperature',
+    templateUrl: 'heating-current-temperature.page.html',
+    styleUrls: ['heating-current-temperature.page.scss']
 })
-export class CurrentHumidityPage implements OnInit {
+export class HeatingCurrentTemperaturePage implements OnInit {
 
-    constructor(public navCtrl: NavController, private dataProvider: DataProviderWs) {
+    constructor(private dataProvider: DataProviderWs) {
     }
 
     ngOnInit() {
         window.setTimeout(() => { // hack to get responsive width working on initial load
-            const categories = ['Living room humidity', 'Sleeping room humidity'];
-            const currentBarChart = chart('humiditybarchart', {
+            const categories = ['Leading', 'Inlet'];
+            const currentBarChart = chart('heatingtempbarchart', {
                 chart: {
                     type: 'bar'
                 },
                 title: {
-                    text: 'Current humidity'
+                    text: 'Current Temperature'
                 },
                 xAxis: {
                     categories: categories,
@@ -32,7 +31,7 @@ export class CurrentHumidityPage implements OnInit {
                     }
                 },
                 tooltip: {
-                    valueSuffix: '%'
+                    valueSuffix: 'C'
                 },
                 plotOptions: {
                     series: {
@@ -43,13 +42,13 @@ export class CurrentHumidityPage implements OnInit {
                     enabled: false
                 },
                 series: [{
-                    name: 'humidity',
-                    data: [{y: 20, color: '#000000'}, {y: 20, color: '#0099ff'}]
+                    name: 'Temperature',
+                    data: [{y: 20, color: '#02FE18'}, {y: 20, color: '#0099ff'}]
                 }],
             });
 
             this.dataProvider.getEnvironmentMessages().subscribe(msg => {
-                currentBarChart.series[0].setData([msg.livingRoomHumidity, msg.sleepingRoomHumidity]);
+                currentBarChart.series[0].setData([msg.heatingLeading, msg.heatingInlet]);
             });
         }, 30);
     }

@@ -6,16 +6,17 @@ import {CommonHighChartsSettings} from '../../CommonHighChartsSettings';
 
 
 @Component({
-    selector: 'co2-trend',
-    templateUrl: 'co2-trend.page.html',
-    styleUrls: ['co2-trend.page.scss']
+    selector: 'heating-temperature-trend',
+    templateUrl: 'heating-temperature-trend.page.html',
+    styleUrls: ['heating-temperature-trend.page.scss']
 })
-export class Co2TrendPage implements OnInit {
+export class HeatingTemperatureTrendPage implements OnInit {
+
     private msgCount = 0;
-    private co2TrendChart;
+    private tempChart;
     private homeEnvironmentData: Subscription;
-    private living = [];
-    private sleeping = [];
+    private leading = [];
+    private inlet = [];
     private preloading = true;
 
     constructor(private dataProvider: DataProviderWs) {
@@ -23,12 +24,12 @@ export class Co2TrendPage implements OnInit {
 
     private static getSeries() {
         return [{
-            name: 'Living room Co2',
-            color: '#ff0000',
+            name: 'Leading',
+            color: '#02FE18',
             data: []
         }, {
-            name: 'Sleeping room Co2',
-            color: '#0099ff',
+            name: 'Inlet',
+            color: '#D37515',
             data: []
         }];
     }
@@ -37,41 +38,39 @@ export class Co2TrendPage implements OnInit {
         window.setTimeout(() => { // hack to get responsive width working on initial load
             const areaChartOptions = {
                 title: {
-                    text: 'Co2'
+                    text: 'Heating Temperature'
                 },
                 chart: {
                     type: 'areaspline',
                     zoomType: 'x'
                 },
                 xAxis: {
-                    type: 'datetime',
+                    type: 'datetime'
                 },
                 yAxis: {
                     title: {
-                        text: 'ppm'
+                        text: 'Celsius'
                     }
                 },
                 rangeSelector: {
                     selected: 1
                 },
-                animation: false,
                 plotOptions: CommonHighChartsSettings.getTrendPlotOptions(),
-                series: Co2TrendPage.getSeries()
+                series: HeatingTemperatureTrendPage.getSeries()
             };
 
-            this.co2TrendChart = chart('co2trendchart', areaChartOptions);
-
+            this.tempChart = chart('heatingtemptrendchart', areaChartOptions);
             this.subscribeDataProvider();
         }, 30);
     }
 
-    changeHistoryHours(hours: number) {
+    public changeHistoryHours(hours: number) {
         this.msgCount = 0;
-        this.living = [];
-        this.sleeping = [];
+        this.leading = [];
+        this.inlet = [];
         this.preloading = true;
-        this.co2TrendChart.update({
-            series: Co2TrendPage.getSeries()
+        this.tempChart.update({
+            series: HeatingTemperatureTrendPage.getSeries()
         });
         this.subscribeDataProvider(this.dataProvider.getTimestampOfNowSubstracting(hours));
     }
@@ -80,25 +79,23 @@ export class Co2TrendPage implements OnInit {
         if (this.homeEnvironmentData) {
             this.homeEnvironmentData.unsubscribe();
         }
-
         this.homeEnvironmentData =
             this.dataProvider.getEnvironmentMessagesWithHistory(newTimestampStartHistory).subscribe(msg => {
                 const date = msg.date.getTime();
-                this.msgCount++;
                 console.log('adding: ' + date);
+                this.msgCount++;
                 if (msg.officeTemp === 9999.0) {
                     console.log('Terminator found, setting data and rendering chart');
                     this.preloading = false;
-                    this.co2TrendChart.series[0].setData(this.living, true);
-                    this.co2TrendChart.series[1].setData(this.sleeping, true);
+                    this.tempChart.series[0].setData(this.leading, true);
+                    this.tempChart.series[1].setData(this.inlet, true);
                 } else if (this.preloading) {
-                    this.living.push([date, msg.livingRoomCo2]);
-                    this.sleeping.push([date, msg.sleepingRoomCo2]);
+                    this.leading.push([date, msg.heatingLeading]);
+                    this.inlet.push([date, msg.heatingInlet]);
                 } else {
-                    this.co2TrendChart.series[0].addPoint([date, msg.livingRoomCo2]);
-                    this.co2TrendChart.series[1].addPoint([date, msg.sleepingRoomCo2]);
+                    this.tempChart.series[0].addPoint([date, msg.heatingLeading]);
+                    this.tempChart.series[1].addPoint([date, msg.heatingInlet]);
                 }
             });
-
     }
 }

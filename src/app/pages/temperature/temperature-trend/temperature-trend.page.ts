@@ -40,31 +40,33 @@ export class TemperatureTrendPage implements OnInit {
     }
 
     ngOnInit() {
-        const areaChartOptions = {
-            title: {
-                text: 'Temperature'
-            },
-            chart: {
-                type: 'areaspline',
-                zoomType: 'x'
-            },
-            xAxis: {
-                type: 'datetime'
-            },
-            yAxis: {
+        window.setTimeout(() => { // hack to get responsive width working on initial load
+            const areaChartOptions = {
                 title: {
-                    text: 'Celsius'
-                }
-            },
-            rangeSelector: {
-                selected: 1
-            },
-            plotOptions: CommonHighChartsSettings.getTrendPlotOptions(),
-            series: TemperatureTrendPage.getSeries()
-        };
+                    text: 'Temperature'
+                },
+                chart: {
+                    type: 'areaspline',
+                    zoomType: 'x'
+                },
+                xAxis: {
+                    type: 'datetime'
+                },
+                yAxis: {
+                    title: {
+                        text: 'Celsius'
+                    }
+                },
+                rangeSelector: {
+                    selected: 1
+                },
+                plotOptions: CommonHighChartsSettings.getTrendPlotOptions(),
+                series: TemperatureTrendPage.getSeries()
+            };
 
-        this.tempChart = chart('temptrendchart', areaChartOptions);
-        this.subscribeDataProvider();
+            this.tempChart = chart('temptrendchart', areaChartOptions);
+            this.subscribeDataProvider();
+        }, 30);
     }
 
     public changeHistoryHours(hours: number) {
