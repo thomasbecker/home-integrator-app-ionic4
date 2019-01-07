@@ -61,7 +61,7 @@ export class WatertankTemperatureTrendPage implements OnInit {
 
             this.tempChart = chart('watertanktemptrendchart', areaChartOptions);
             this.subscribeDataProvider();
-        }, 30);
+        }, 300);
     }
 
     public changeHistoryHours(hours: number) {

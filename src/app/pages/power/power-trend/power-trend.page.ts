@@ -87,7 +87,7 @@ export class PowerTrendPage implements OnInit {
 
             this.powerTrendChart = chart('powertrendchart', areaChartOptions);
             this.subscribeDataProvider();
-        }, 200);
+        }, 300);
     }
 
     private subscribeDataProvider(newTimestampStartHistory = this.dataProvider.getTimestampOfNowSubstracting(4)) {

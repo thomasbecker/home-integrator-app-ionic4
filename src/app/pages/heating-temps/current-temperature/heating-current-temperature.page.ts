@@ -50,6 +50,6 @@ export class HeatingCurrentTemperaturePage implements OnInit {
             this.dataProvider.getEnvironmentMessages().subscribe(msg => {
                 currentBarChart.series[0].setData([msg.heatingLeading, msg.heatingInlet]);
             });
-        }, 30);
+        }, 300);
     }
 }

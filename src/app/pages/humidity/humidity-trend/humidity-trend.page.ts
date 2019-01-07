@@ -59,7 +59,7 @@ export class HumidityTrendPage implements OnInit {
 
             this.humidityTrendChart = chart('humiditytrendchart', areaChartOptions);
             this.subscribeDataProvider();
-        }, 30);
+        }, 300);
     }
 
     changeHistoryHours(hours: number) {

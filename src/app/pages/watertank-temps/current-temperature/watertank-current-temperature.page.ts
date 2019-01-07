@@ -50,6 +50,6 @@ export class WatertankCurrentTemperaturePage implements OnInit {
             this.dataProvider.getEnvironmentMessages().subscribe(msg => {
                 currentBarChart.series[0].setData([msg.waterTankMiddle, msg.waterTankBottom]);
             });
-        }, 30);
+        }, 300);
     }
 }

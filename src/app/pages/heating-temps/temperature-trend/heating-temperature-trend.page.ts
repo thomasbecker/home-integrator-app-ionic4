@@ -61,7 +61,7 @@ export class HeatingTemperatureTrendPage implements OnInit {
 
             this.tempChart = chart('heatingtemptrendchart', areaChartOptions);
             this.subscribeDataProvider();
-        }, 30);
+        }, 300);
     }
 
     public changeHistoryHours(hours: number) {
