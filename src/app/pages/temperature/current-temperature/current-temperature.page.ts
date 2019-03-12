@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {chart} from 'highcharts';
-import {DataProviderWs} from '../../../dataProviderWs';
+import {DataProviderWs, HomeEnvironmentData, HomePowerData} from '../../../dataProviderWs';
 import {NavController} from '@ionic/angular';
 
 
@@ -10,6 +10,9 @@ import {NavController} from '@ionic/angular';
     styleUrls: ['current-temperature.page.scss']
 })
 export class CurrentTemperaturePage implements OnInit {
+
+    private lastMessage: HomeEnvironmentData = new HomeEnvironmentData();
+    private msgCount = 0;
 
     constructor(private dataProvider: DataProviderWs) {
     }
@@ -49,6 +52,8 @@ export class CurrentTemperaturePage implements OnInit {
             });
 
             this.dataProvider.getEnvironmentMessages().subscribe(msg => {
+                this.lastMessage = msg;
+                this.msgCount++;
                 currentBarChart.series[0].setData([msg.officeTemp, msg.livingRoomTemp, msg.sleepingRoomTemp]);
             });
         }, 300);

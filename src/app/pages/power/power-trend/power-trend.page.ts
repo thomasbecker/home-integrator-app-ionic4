@@ -17,7 +17,6 @@ export class PowerTrendPage implements OnInit {
     }
 
     private lastMessage: HomePowerData = new HomePowerData();
-    private showDebug = false;
     private msgCount = 0;
     private powerTrendChart;
     private homePowerData: Subscription;

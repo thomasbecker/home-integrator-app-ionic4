@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {chart} from 'highcharts';
-import {DataProviderWs} from '../../../dataProviderWs';
+import {DataProviderWs, HomePowerData} from '../../../dataProviderWs';
 
 @Component({
     selector: 'current-power',
@@ -8,6 +8,9 @@ import {DataProviderWs} from '../../../dataProviderWs';
     styleUrls: ['current-power.page.scss']
 })
 export class CurrentPowerPage implements OnInit {
+
+    private lastMessage: HomePowerData = new HomePowerData();
+    private msgCount = 0;
 
     constructor(private dataProvider: DataProviderWs) {
     }
@@ -50,6 +53,8 @@ export class CurrentPowerPage implements OnInit {
             });
 
             this.dataProvider.getPowerMessages().subscribe(msg => {
+                this.lastMessage = msg;
+                this.msgCount++;
                 currentBarChart.series[0].setData([msg.powerGrid, msg.powerLoad, msg.heatpumpConsumption, msg.powerPv]);
             });
         }, 300);
