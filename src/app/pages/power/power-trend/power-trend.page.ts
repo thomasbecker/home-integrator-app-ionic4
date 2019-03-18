@@ -98,9 +98,7 @@ export class PowerTrendPage implements OnInit {
             const date = msg.date.getTime();
             this.lastMessage = msg;
             this.msgCount++;
-            console.log('adding: ' + msg.date + ' grid: ' + msg.powerGrid);
             if (msg.powerGrid === 9999.0) {
-                console.log('Terminator found, setting data and rendering chart');
                 this.preloading = false;
                 this.powerTrendChart.series[0].setData(this.heatBuffer, true);
                 this.powerTrendChart.series[1].setData(this.loadBuffer, true);

@@ -1,15 +1,6 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Co2 Trend
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content padding>
-  Co2 Trend
-  <div id="content">
+Humidity Trend
+<div id="content">
     <history-buttons (changeHistoryHoursEvent)="changeHistoryHours($event)"></history-buttons>
     <div id="humiditytrendchart" style="width: 100%; height: 100%;"></div>
-  </div>
-</ion-content>
+    <debug-output [lastMessage]="lastMessage" [msgCount]="msgCount"></debug-output>
+</div>

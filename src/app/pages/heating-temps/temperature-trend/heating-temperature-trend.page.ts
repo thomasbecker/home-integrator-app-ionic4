@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {chart} from 'highcharts';
-import {DataProviderWs} from '../../../dataProviderWs';
+import {DataProviderWs, HomeEnvironmentData} from '../../../dataProviderWs';
 import {Subscription} from 'rxjs';
 import {CommonHighChartsSettings} from '../../CommonHighChartsSettings';
 
@@ -12,6 +12,7 @@ import {CommonHighChartsSettings} from '../../CommonHighChartsSettings';
 })
 export class HeatingTemperatureTrendPage implements OnInit {
 
+    private lastMessage: HomeEnvironmentData = new HomeEnvironmentData();
     private msgCount = 0;
     private tempChart;
     private homeEnvironmentData: Subscription;
@@ -82,10 +83,9 @@ export class HeatingTemperatureTrendPage implements OnInit {
         this.homeEnvironmentData =
             this.dataProvider.getEnvironmentMessagesWithHistory(newTimestampStartHistory).subscribe(msg => {
                 const date = msg.date.getTime();
-                console.log('adding: ' + date);
                 this.msgCount++;
+                this.lastMessage = msg;
                 if (msg.officeTemp === 9999.0) {
-                    console.log('Terminator found, setting data and rendering chart');
                     this.preloading = false;
                     this.tempChart.series[0].setData(this.leading, true);
                     this.tempChart.series[1].setData(this.inlet, true);

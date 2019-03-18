@@ -5,9 +5,10 @@
 </ion-header>
 
 <ion-content padding>
-  <h2>Current Power Consumption!</h2>
+  <h2>Power Consumption!</h2>
   <div id="content">
     <div id="powerbarchart"></div>
     <debug-output [lastMessage]="lastMessage" [msgCount]="msgCount"></debug-output>
   </div>
+  <power-trend></power-trend>
 </ion-content>

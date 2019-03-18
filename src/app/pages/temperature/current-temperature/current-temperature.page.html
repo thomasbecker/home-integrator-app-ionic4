@@ -1,13 +1,14 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Home</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title>Home</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <h2>Current Temperature</h2>
-  <div id="content">
-    <div id="tempbarchart"></div>
-    <debug-output [lastMessage]="lastMessage" [msgCount]="msgCount"></debug-output>
-  </div>
+    <h2>Temperature</h2>
+    <div id="content">
+        <div id="tempbarchart"></div>
+        <debug-output [lastMessage]="lastMessage" [msgCount]="msgCount"></debug-output>
+    </div>
+    <temperature-trend></temperature-trend>
 </ion-content>

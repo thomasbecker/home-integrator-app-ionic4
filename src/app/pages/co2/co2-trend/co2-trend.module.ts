@@ -12,9 +12,9 @@ import {Co2TrendPage} from './co2-trend.page';
         CommonModule,
         FormsModule,
         ComponentsModule,
-        RouterModule.forChild([{path: '', component: Co2TrendPage}])
     ],
-    declarations: [Co2TrendPage]
+    declarations: [Co2TrendPage],
+    exports: [Co2TrendPage]
 })
 export class Co2TrendPageModule {
 }

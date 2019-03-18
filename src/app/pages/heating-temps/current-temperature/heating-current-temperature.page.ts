@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {chart} from 'highcharts';
-import {DataProviderWs} from '../../../dataProviderWs';
+import {DataProviderWs, HomeEnvironmentData} from '../../../dataProviderWs';
 
 
 @Component({
@@ -9,6 +9,8 @@ import {DataProviderWs} from '../../../dataProviderWs';
     styleUrls: ['heating-current-temperature.page.scss']
 })
 export class HeatingCurrentTemperaturePage implements OnInit {
+    private lastMessage: HomeEnvironmentData = new HomeEnvironmentData();
+    private msgCount = 0;
 
     constructor(private dataProvider: DataProviderWs) {
     }
@@ -48,6 +50,8 @@ export class HeatingCurrentTemperaturePage implements OnInit {
             });
 
             this.dataProvider.getEnvironmentMessages().subscribe(msg => {
+                this.msgCount++;
+                this.lastMessage = msg;
                 currentBarChart.series[0].setData([msg.heatingLeading, msg.heatingInlet]);
             });
         }, 300);

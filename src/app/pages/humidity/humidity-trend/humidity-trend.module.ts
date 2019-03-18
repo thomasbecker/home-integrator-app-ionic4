@@ -12,9 +12,9 @@ import {HumidityTrendPage} from './humidity-trend.page';
         CommonModule,
         FormsModule,
         ComponentsModule,
-        RouterModule.forChild([{path: '', component: HumidityTrendPage}])
     ],
-    declarations: [HumidityTrendPage]
+    declarations: [HumidityTrendPage],
+    exports: [HumidityTrendPage]
 })
 export class HumidityTrendPageModule {
 }

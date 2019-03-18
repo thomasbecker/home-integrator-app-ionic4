@@ -11,10 +11,10 @@ import {WatertankTemperatureTrendPage} from './watertank-temperature-trend.page'
         IonicModule,
         CommonModule,
         FormsModule,
-        ComponentsModule,
-        RouterModule.forChild([{path: '', component: WatertankTemperatureTrendPage}])
+        ComponentsModule
     ],
-    declarations: [WatertankTemperatureTrendPage]
+    declarations: [WatertankTemperatureTrendPage],
+    exports: [WatertankTemperatureTrendPage]
 })
 export class WatertankTemperatureTrendPageModule {
 }

@@ -11,10 +11,10 @@ import {TemperatureTrendPage} from './temperature-trend.page';
         IonicModule,
         CommonModule,
         FormsModule,
-        ComponentsModule,
-        RouterModule.forChild([{path: '', component: TemperatureTrendPage}])
+        ComponentsModule
     ],
-    declarations: [TemperatureTrendPage]
+    declarations: [TemperatureTrendPage],
+    exports: [TemperatureTrendPage]
 })
 export class TemperatureTrendPageModule {
 }

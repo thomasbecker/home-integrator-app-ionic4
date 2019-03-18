@@ -8,5 +8,7 @@
   <h2>Watertank current temperature</h2>
   <div id="content">
     <div id="watertanktempbarchart"></div>
+    <debug-output [lastMessage]="lastMessage" [msgCount]="msgCount"></debug-output>
   </div>
+  <watertank-temperature-trend></watertank-temperature-trend>
 </ion-content>

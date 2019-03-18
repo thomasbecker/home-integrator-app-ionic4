@@ -12,9 +12,9 @@ import {HeatingTemperatureTrendPage} from './heating-temperature-trend.page';
         CommonModule,
         FormsModule,
         ComponentsModule,
-        RouterModule.forChild([{path: '', component: HeatingTemperatureTrendPage}])
     ],
-    declarations: [HeatingTemperatureTrendPage]
+    declarations: [HeatingTemperatureTrendPage],
+    exports: [HeatingTemperatureTrendPage]
 })
 export class HeatingTemperatureTrendPageModule {
 }

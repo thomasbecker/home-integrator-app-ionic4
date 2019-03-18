@@ -1,16 +1,5 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Power Consumption Trend
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content padding>
-  Power Consumption Trend
-  <div id="content">
+  <div id="trend">
     <history-buttons (changeHistoryHoursEvent)="changeHistoryHours($event)"></history-buttons>
     <div id="powertrendchart"></div>
     <debug-output [lastMessage]="lastMessage" [msgCount]="msgCount"></debug-output>
   </div>
-</ion-content>

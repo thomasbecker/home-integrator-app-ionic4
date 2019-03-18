@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {NavController} from '@ionic/angular';
 import {chart} from 'highcharts';
-import {DataProviderWs} from '../../../dataProviderWs';
+import {DataProviderWs, HomeEnvironmentData} from '../../../dataProviderWs';
 
 
 @Component({
@@ -10,6 +10,8 @@ import {DataProviderWs} from '../../../dataProviderWs';
     styleUrls: ['current-humidity.page.scss']
 })
 export class CurrentHumidityPage implements OnInit {
+    private lastMessage: HomeEnvironmentData = new HomeEnvironmentData();
+    private msgCount = 0;
 
     constructor(public navCtrl: NavController, private dataProvider: DataProviderWs) {
     }
@@ -49,6 +51,8 @@ export class CurrentHumidityPage implements OnInit {
             });
 
             this.dataProvider.getEnvironmentMessages().subscribe(msg => {
+                this.lastMessage = msg;
+                this.msgCount++;
                 currentBarChart.series[0].setData([msg.livingRoomHumidity, msg.sleepingRoomHumidity]);
             });
         }, 300);

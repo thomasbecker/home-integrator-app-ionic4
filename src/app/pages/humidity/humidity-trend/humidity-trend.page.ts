@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {chart} from 'highcharts';
-import {DataProviderWs} from '../../../dataProviderWs';
+import {DataProviderWs, HomeEnvironmentData} from '../../../dataProviderWs';
 import {Subscription} from 'rxjs';
 import {CommonHighChartsSettings} from '../../CommonHighChartsSettings';
 
@@ -11,6 +11,7 @@ import {CommonHighChartsSettings} from '../../CommonHighChartsSettings';
 })
 export class HumidityTrendPage implements OnInit {
     private msgCount = 0;
+    private lastMessage: HomeEnvironmentData = new HomeEnvironmentData();
     private humidityTrendChart;
     private homeEnvironmentData: Subscription;
     private living = [];
@@ -80,9 +81,8 @@ export class HumidityTrendPage implements OnInit {
         this.homeEnvironmentData = this.dataProvider.getEnvironmentMessagesWithHistory(newTimestampStartHistory).subscribe(msg => {
             const date = msg.date.getTime();
             this.msgCount++;
-            console.log('adding: ' + date);
+            this.lastMessage = msg;
             if (msg.officeTemp === 9999.0) {
-                console.log('Terminator found, setting data and rendering chart');
                 this.preloading = false;
                 this.humidityTrendChart.series[0].setData(this.living, true);
                 this.humidityTrendChart.series[1].setData(this.sleeping, true);

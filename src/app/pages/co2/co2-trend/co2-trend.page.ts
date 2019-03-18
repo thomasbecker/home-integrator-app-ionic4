@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {chart} from 'highcharts';
-import {DataProviderWs} from '../../../dataProviderWs';
+import {DataProviderWs, HomeEnvironmentData} from '../../../dataProviderWs';
 import {Subscription} from 'rxjs';
 import {CommonHighChartsSettings} from '../../CommonHighChartsSettings';
 
@@ -11,6 +11,7 @@ import {CommonHighChartsSettings} from '../../CommonHighChartsSettings';
     styleUrls: ['co2-trend.page.scss']
 })
 export class Co2TrendPage implements OnInit {
+    private lastMessage: HomeEnvironmentData = new HomeEnvironmentData();
     private msgCount = 0;
     private co2TrendChart;
     private homeEnvironmentData: Subscription;
@@ -85,7 +86,7 @@ export class Co2TrendPage implements OnInit {
             this.dataProvider.getEnvironmentMessagesWithHistory(newTimestampStartHistory).subscribe(msg => {
                 const date = msg.date.getTime();
                 this.msgCount++;
-                console.log('adding: ' + date);
+                this.lastMessage = msg;
                 if (msg.officeTemp === 9999.0) {
                     console.log('Terminator found, setting data and rendering chart');
                     this.preloading = false;

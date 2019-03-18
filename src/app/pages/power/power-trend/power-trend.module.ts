@@ -11,10 +11,11 @@ import {ComponentsModule} from '../../../components/components.module';
         IonicModule,
         CommonModule,
         FormsModule,
-        ComponentsModule,
-        RouterModule.forChild([{path: '', component: PowerTrendPage}])
+        ComponentsModule
+        // RouterModule.forChild([{path: '', component: PowerTrendPage}])
     ],
-    declarations: [PowerTrendPage]
+    declarations: [PowerTrendPage],
+    exports: [PowerTrendPage]
 })
 export class PowerTrendPageModule {
 }

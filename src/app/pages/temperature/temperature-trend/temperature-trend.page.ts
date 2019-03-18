@@ -89,7 +89,6 @@ export class TemperatureTrendPage implements OnInit {
         this.homeEnvironmentData =
             this.dataProvider.getEnvironmentMessagesWithHistory(newTimestampStartHistory).subscribe(msg => {
                 const date = msg.date.getTime();
-                console.log('adding: ' + date);
                 this.msgCount++;
                 this.lastMessage = msg;
                 if (msg.officeTemp === 9999.0) {

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {chart} from 'highcharts';
 import {DataProviderWs, HomePowerData} from '../../../dataProviderWs';
+import {Platform} from '@ionic/angular';
 
 @Component({
     selector: 'current-power',
@@ -11,14 +12,18 @@ export class CurrentPowerPage implements OnInit {
 
     private lastMessage: HomePowerData = new HomePowerData();
     private msgCount = 0;
+    private barChart: chart;
 
-    constructor(private dataProvider: DataProviderWs) {
+    constructor(private dataProvider: DataProviderWs, private platform: Platform) {
+        this.platform.resume.subscribe(() => {
+            this.subscribeToBackend();
+        });
     }
 
     ngOnInit() {
         window.setTimeout(() => { // hack to get responsive width working on initial load
             const categories = ['Power Grid', 'House Consumption', 'Heatpump Consumption', 'PV Production'];
-            const currentBarChart = chart('powerbarchart', {
+            this.barChart = chart('powerbarchart', {
                 chart: {
                     type: 'bar'
                 },
@@ -51,12 +56,15 @@ export class CurrentPowerPage implements OnInit {
                     }]
                 }],
             });
-
-            this.dataProvider.getPowerMessages().subscribe(msg => {
-                this.lastMessage = msg;
-                this.msgCount++;
-                currentBarChart.series[0].setData([msg.powerGrid, msg.powerLoad, msg.heatpumpConsumption, msg.powerPv]);
-            });
+            this.subscribeToBackend();
         }, 300);
+    }
+
+    private subscribeToBackend() {
+        this.dataProvider.getPowerMessages().subscribe(msg => {
+            this.lastMessage = msg;
+            this.msgCount++;
+            this.barChart.series[0].setData([msg.powerGrid, msg.powerLoad, msg.heatpumpConsumption, msg.powerPv]);
+        });
     }
 }

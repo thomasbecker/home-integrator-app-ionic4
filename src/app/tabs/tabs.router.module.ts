@@ -18,38 +18,11 @@ const routes: Routes = [
                 ]
             },
             {
-                path: 'power-trend',
-                children: [
-                    {
-                        path: '',
-                        loadChildren: '../pages/power/power-trend/power-trend.module#PowerTrendPageModule'
-                    }
-                ]
-            },
-            {
                 path: 'current-temperature',
                 children: [
                     {
                         path: '',
                         loadChildren: '../pages/temperature/current-temperature/current-temperature.module#CurrentTemperaturePageModule'
-                    }
-                ]
-            },
-            {
-                path: 'temperature-trend',
-                children: [
-                    {
-                        path: '',
-                        loadChildren: '../pages/temperature/temperature-trend/temperature-trend.module#TemperatureTrendPageModule'
-                    }
-                ]
-            },
-            {
-                path: 'co2-trend',
-                children: [
-                    {
-                        path: '',
-                        loadChildren: '../pages/co2/co2-trend/co2-trend.module#Co2TrendPageModule'
                     }
                 ]
             },
@@ -72,25 +45,6 @@ const routes: Routes = [
                 ]
             },
             {
-                path: 'humidity-trend',
-                children: [
-                    {
-                        path: '',
-                        loadChildren: '../pages/humidity/humidity-trend/humidity-trend.module#HumidityTrendPageModule'
-                    }
-                ]
-            },
-            {
-                path: 'heating-trend',
-                children: [
-                    {
-                        path: '',
-                        loadChildren:
-                            '../pages/heating-temps/temperature-trend/heating-temperature-trend.module#HeatingTemperatureTrendPageModule'
-                    }
-                ]
-            },
-            {
                 path: 'current-heating',
                 children: [
                     {
@@ -109,17 +63,6 @@ const routes: Routes = [
                         loadChildren:
                             '../pages/watertank-temps/current-temperature/watertank-current-temperature.module' +
                             '#WatertankCurrentTemperaturePageModule'
-                    }
-                ]
-            },
-            {
-                path: 'watertank-trend',
-                children: [
-                    {
-                        path: '',
-                        loadChildren:
-                            '../pages/watertank-temps/temperature-trend/watertank-temperature-trend.module' +
-                            '#WatertankTemperatureTrendPageModule'
                     }
                 ]
             },
