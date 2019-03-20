@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {NavController} from '@ionic/angular';
 import {chart} from 'highcharts';
 import {DataProviderWs, HomeEnvironmentData} from '../../../dataProviderWs';
+import {AppSettings} from '../../../app.settings';
 
 
 @Component({
@@ -21,7 +22,8 @@ export class CurrentHumidityPage implements OnInit {
             const categories = ['Living room humidity', 'Sleeping room humidity'];
             const currentBarChart = chart('humiditybarchart', {
                 chart: {
-                    type: 'bar'
+                    type: 'bar',
+                    height: AppSettings.current_chart_height
                 },
                 title: {
                     text: 'Current humidity'

@@ -1,18 +1,25 @@
 import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 
-const EventSource: any = window['EventSource'];
+const HEATPUMPPVCOVERAGEURL = 'http://little:9000/api/homePowerData/heatpumpPvCoverage/';
+
+export interface Day {
+    timestamp: number;
+    heatPumpPvCoverage: HeatPumpPvCoverage;
+}
+
+export interface HeatPumpPvCoverage {
+    consumption: number;
+    coveredByPv: number;
+    pv: number;
+}
 
 @Injectable()
 export class DataProvider {
+    constructor(private http: HttpClient) {
+    }
 
-  private _dataSource = new EventSource('http://little:9000/homeData');
-
-  constructor() {
-
-  }
-
-  get dataSource(): any {
-    return this._dataSource;
-  }
-
+    getHeatpumpPvCoverage(month: number, year: number) {
+        return this.http.get<Array<Day>>(HEATPUMPPVCOVERAGEURL + `${year}/${month}`);
+    }
 }

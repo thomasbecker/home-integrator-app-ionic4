@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {NavController} from '@ionic/angular';
 import {chart} from 'highcharts';
 import {DataProviderWs, HomeEnvironmentData} from '../../../dataProviderWs';
+import {AppSettings} from '../../../app.settings';
 
 @Component({
     selector: 'current-co2',
@@ -20,7 +21,8 @@ export class CurrentCo2Page implements OnInit {
             const categories = ['Living room', 'Sleeping room'];
             const currentBarChart = chart('co2barchart', {
                 chart: {
-                    type: 'bar'
+                    type: 'bar',
+                    height: AppSettings.current_chart_height
                 },
                 title: {
                     text: 'Current Co2'

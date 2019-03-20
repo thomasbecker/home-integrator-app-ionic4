@@ -1,0 +1,16 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Heatpump PV Coverage</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <h2>Heatpump PV Coverage</h2>
+    <div id="content">
+        <div id="heatpumppvcoverage">
+        </div>
+        <span *ngFor="let month of months">
+        <button ion-button color="light" (click)="renderGraph(getMonthBy(month), 2019)">{{month}}</button>
+      </span>
+    </div>
+</ion-content>

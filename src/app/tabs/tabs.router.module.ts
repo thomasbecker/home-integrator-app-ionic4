@@ -67,6 +67,16 @@ const routes: Routes = [
                 ]
             },
             {
+                path: 'heatpump-pv-coverage',
+                children: [
+                    {
+                        path: '',
+                        loadChildren:
+                            '../pages/heatpump-pv-coverage/heatpump-pv-coverage.module#HeatpumpPvCoveragePageModule'
+                    }
+                ]
+            },
+            {
                 path: '',
                 redirectTo: '/tabs/current-power',
                 pathMatch: 'full'

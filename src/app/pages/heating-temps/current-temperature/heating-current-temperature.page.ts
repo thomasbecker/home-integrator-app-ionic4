@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {chart} from 'highcharts';
 import {DataProviderWs, HomeEnvironmentData} from '../../../dataProviderWs';
+import {AppSettings} from '../../../app.settings';
 
 
 @Component({
@@ -20,7 +21,8 @@ export class HeatingCurrentTemperaturePage implements OnInit {
             const categories = ['Leading', 'Inlet'];
             const currentBarChart = chart('heatingtempbarchart', {
                 chart: {
-                    type: 'bar'
+                    type: 'bar',
+                    height: AppSettings.current_chart_height
                 },
                 title: {
                     text: 'Current Temperature'

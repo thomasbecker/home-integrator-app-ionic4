@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {chart} from 'highcharts';
 import {DataProviderWs, HomePowerData} from '../../../dataProviderWs';
 import {Platform} from '@ionic/angular';
+import {AppSettings} from '../../../app.settings';
 
 @Component({
     selector: 'current-power',
@@ -25,7 +26,8 @@ export class CurrentPowerPage implements OnInit {
             const categories = ['Power Grid', 'House Consumption', 'Heatpump Consumption', 'PV Production'];
             this.barChart = chart('powerbarchart', {
                 chart: {
-                    type: 'bar'
+                    type: 'bar',
+                    height: AppSettings.current_chart_height
                 },
                 title: {
                     text: 'Current Consumption/Yield'
@@ -41,6 +43,9 @@ export class CurrentPowerPage implements OnInit {
                     valueSuffix: 'W'
                 },
                 plotOptions: {
+                    dataLabels: {
+                        enabled: true
+                    },
                     series: {
                         stacking: 'normal'
                     }
@@ -50,10 +55,11 @@ export class CurrentPowerPage implements OnInit {
                 },
                 series: [{
                     name: 'Consumption / Yield',
-                    data: [{y: -500, color: '#000000'}, {y: -500, color: '#0099ff'}, {y: -500, color: '#ff0000'}, {
-                        y: -500,
-                        color: '#66ff33'
-                    }]
+                    data: [
+                        {y: -500, color: '#000000'},
+                        {y: -500, color: '#0099ff'},
+                        {y: -500, color: '#ff0000'},
+                        {y: -500, color: '#00ff00'}]
                 }],
             });
             this.subscribeToBackend();

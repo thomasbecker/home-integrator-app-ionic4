@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {chart} from 'highcharts';
 import {DataProviderWs, HomeEnvironmentData, HomePowerData} from '../../../dataProviderWs';
 import {NavController} from '@ionic/angular';
+import {AppSettings} from '../../../app.settings';
 
 
 @Component({
@@ -22,7 +23,8 @@ export class CurrentTemperaturePage implements OnInit {
             const categories = ['Office', 'Living Room', 'Sleeping Room'];
             const currentBarChart = chart('tempbarchart', {
                 chart: {
-                    type: 'bar'
+                    type: 'bar',
+                    height: AppSettings.current_chart_height
                 },
                 title: {
                     text: 'Current Temperature'
