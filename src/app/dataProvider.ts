@@ -20,6 +20,10 @@ export class DataProvider {
     }
 
     getHeatpumpPvCoverage(month: number, year: number) {
-        return this.http.get<Array<Day>>(HEATPUMPPVCOVERAGEURL + `${year}/${month}`);
+        if (month === -1) {
+            return this.http.get<Array<Day>>(HEATPUMPPVCOVERAGEURL + `${year}`);
+        } else {
+            return this.http.get<Array<Day>>(HEATPUMPPVCOVERAGEURL + `${year}/${month}`);
+        }
     }
 }

@@ -12,6 +12,7 @@ import {timestamp} from 'rxjs/operators';
 export class HeatpumpPvCoveragePage implements OnInit {
 
     months: string[] = moment.months();
+    years: number[] = [2018, 2019, 2020, 2021];
     currentMonth: number = moment().month() + 1;
     currentYear: number = moment().year();
     private currentBarChart: chart;
@@ -29,7 +30,14 @@ export class HeatpumpPvCoveragePage implements OnInit {
         return moment().month(name).format('M');
     }
 
-    private renderGraph(month: number = this.currentMonth, year: number = this.currentMonth) {
+    private renderGraph(month: number = this.currentMonth, year: number = this.currentYear) {
+        let tickinterval;
+        if (month === -1) {
+            tickinterval = 28 * 24 * 3600 * 1000;
+        } else {
+            tickinterval = 24 * 3600 * 1000;
+        }
+
         this.currentBarChart = chart('heatpumppvcoverage', {
             chart: {
                 type: 'column',
@@ -40,7 +48,7 @@ export class HeatpumpPvCoveragePage implements OnInit {
             },
             xAxis: {
                 type: 'datetime',
-                tickinterval: 24 * 3600 * 1000,
+                tickinterval: tickinterval,
                 labels: {
                     rotation: -45,
                     align: 'right'
@@ -69,7 +77,7 @@ export class HeatpumpPvCoveragePage implements OnInit {
             plotOptions: {
                 series: {
                     stacking: 'percent',
-                    pointRange: 24 * 3600 * 1000 // one day
+                    pointRange: tickinterval // one day
                 }
             }
         });
@@ -78,7 +86,7 @@ export class HeatpumpPvCoveragePage implements OnInit {
     }
 
     private getDataFor(month: number, year: number) {
-        this.dataProvider.getHeatpumpPvCoverage(month, 2019).subscribe((msg: Array<Day>) => {
+        this.dataProvider.getHeatpumpPvCoverage(month, year).subscribe((msg: Array<Day>) => {
             const consumptions = [];
             const coveredByPvs = [];
 

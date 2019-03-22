@@ -10,7 +10,12 @@
         <div id="heatpumppvcoverage">
         </div>
         <span *ngFor="let month of months">
-        <button ion-button color="light" (click)="renderGraph(getMonthBy(month), 2019)">{{month}}</button>
-      </span>
+            <button ion-button color="light" (click)="renderGraph(getMonthBy(month), 2019)">{{month}}</button>
+        </span>
+    </div>
+    <div>
+        <span *ngFor="let year of years">
+            <button ion-button color="light" (click)="renderGraph(-1, 2019)">{{year}}</button>
+        </span>
     </div>
 </ion-content>
