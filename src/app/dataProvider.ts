@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
-const HEATPUMPPVCOVERAGEURL = 'http://little:9000/api/homePowerData/heatpumpPvCoverage/';
+const HEATPUMPPVCOVERAGEURL = 'http://little:9000/api/heatpumpPvCoverage';
 
 export interface Day {
     timestamp: number;
@@ -20,10 +20,12 @@ export class DataProvider {
     }
 
     getHeatpumpPvCoverage(month: number, year: number) {
-        if (month === -1) {
-            return this.http.get<Array<Day>>(HEATPUMPPVCOVERAGEURL + `${year}`);
+        if (year === -1) {
+            return this.http.get<Array<Day>>(HEATPUMPPVCOVERAGEURL);
+        } else if (month === -1) {
+            return this.http.get<Array<Day>>(HEATPUMPPVCOVERAGEURL + `/${year}`);
         } else {
-            return this.http.get<Array<Day>>(HEATPUMPPVCOVERAGEURL + `${year}/${month}`);
+            return this.http.get<Array<Day>>(HEATPUMPPVCOVERAGEURL + `/${year}/${month}`);
         }
     }
 }

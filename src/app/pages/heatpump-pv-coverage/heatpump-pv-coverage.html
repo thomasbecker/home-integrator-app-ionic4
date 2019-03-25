@@ -15,7 +15,10 @@
     </div>
     <div>
         <span *ngFor="let year of years">
-            <button ion-button color="light" (click)="renderGraph(-1, 2019)">{{year}}</button>
+            <button ion-button color="light" (click)="renderGraph(-1, year)">{{year}}</button>
         </span>
+    </div>
+    <div>
+        <button ion-button color="light" (click)="renderGraph(-1, -1)">total</button>
     </div>
 </ion-content>
