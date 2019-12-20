@@ -29,11 +29,11 @@ export class HumidityTrendPage implements OnInit {
             data: []
         }, {
             name: 'Sleeping room',
-            color: '#0099ff',
+            color: '#FFE4C4',
             data: []
         }, {
             name: 'Basement',
-            color: '#ff8600',
+            color: '#8B4513',
             data: []
         }];
     }

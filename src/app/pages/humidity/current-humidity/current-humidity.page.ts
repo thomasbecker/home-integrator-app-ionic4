@@ -19,7 +19,7 @@ export class CurrentHumidityPage implements OnInit {
 
     ngOnInit() {
         window.setTimeout(() => { // hack to get responsive width working on initial load
-            const categories = ['Living room humidity', 'Sleeping room humidity'];
+            const categories = ['Living room humidity', 'Sleeping room humidity', 'Basement'];
             const currentBarChart = chart('humiditybarchart', {
                 chart: {
                     type: 'bar',
@@ -48,7 +48,7 @@ export class CurrentHumidityPage implements OnInit {
                 },
                 series: [{
                     name: 'humidity',
-                    data: [{y: 20, color: '#000000'}, {y: 20, color: '#0099ff'}]
+                    data: [{y: 20, color: '#000000'}, {y: 20, color: '#FFE4C4'}, {y: 20, color: '#8B4513'}]
                 }],
             });
 

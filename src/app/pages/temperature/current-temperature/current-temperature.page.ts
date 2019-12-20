@@ -20,7 +20,7 @@ export class CurrentTemperaturePage implements OnInit {
 
     ngOnInit() {
         window.setTimeout(() => { // hack to get responsive width working on initial load
-            const categories = ['Office', 'Living Room', 'Sleeping Room'];
+            const categories = ['Office', 'Living Room', 'Sleeping Room', 'Basement'];
             const currentBarChart = chart('tempbarchart', {
                 chart: {
                     type: 'bar',
@@ -49,7 +49,7 @@ export class CurrentTemperaturePage implements OnInit {
                 },
                 series: [{
                     name: 'Temperature',
-                    data: [{y: 20, color: '#02FE18'}, {y: 20, color: '#0099ff'}, {y: 20, color: '#D37515'}]
+                    data: [{y: 20, color: '#02FE18'}, {y: 20, color: '#0099ff'}, {y: 20, color: '#FFE4C4'}, {y: 20, color: '#8B4513'}]
                 }],
             });
 

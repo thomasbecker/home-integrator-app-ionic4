@@ -36,11 +36,11 @@ export class TemperatureTrendPage implements OnInit {
             data: []
         }, {
             name: 'Sleeping room',
-            color: '#D37515',
+            color: '#FFE4C4',
             data: []
         }, {
-            name: 'basement',
-            color: '#ff8600',
+            name: 'Basement',
+            color: '#8B4513',
             data: []
         }];
     }
