@@ -8,8 +8,8 @@ const POWER_SERVER_URL = 'ws://little:9000';
 const ENVIRONMENT_SERVER_URL = 'ws://little:9001';
 const POWER_WITH_HISTORY_URL = POWER_SERVER_URL + '/api/homePowerData/10?from=';
 const POWER_LIVE_URL = POWER_SERVER_URL + '/api/homePowerData/live/1';
-const ENVIRONMENT_WITH_HISTORY_URL = ENVIRONMENT_SERVER_URL + '/api/homeEnvironmentData/30?from=';
-const ENVIRONMENT_LIVE_URL = ENVIRONMENT_SERVER_URL + '/api/homeEnvironmentData/live/30';
+const ENVIRONMENT_WITH_HISTORY_URL = ENVIRONMENT_SERVER_URL + '/api/homeEnvironmentData/60?from=';
+const ENVIRONMENT_LIVE_URL = ENVIRONMENT_SERVER_URL + '/api/homeEnvironmentData/live/60';
 
 export class HomePowerData {
   date: Date;
