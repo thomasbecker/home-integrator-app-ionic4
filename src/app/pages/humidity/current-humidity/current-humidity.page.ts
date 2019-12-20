@@ -55,7 +55,7 @@ export class CurrentHumidityPage implements OnInit {
             this.dataProvider.getEnvironmentMessages().subscribe(msg => {
                 this.lastMessage = msg;
                 this.msgCount++;
-                currentBarChart.series[0].setData([msg.livingRoomHumidity, msg.sleepingRoomHumidity]);
+                currentBarChart.series[0].setData([msg.livingRoomHumidity, msg.sleepingRoomHumidity, msg.basementHumidity]);
             });
         }, 300);
     }

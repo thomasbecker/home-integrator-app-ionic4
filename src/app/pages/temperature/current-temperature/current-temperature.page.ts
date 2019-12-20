@@ -56,7 +56,7 @@ export class CurrentTemperaturePage implements OnInit {
             this.dataProvider.getEnvironmentMessages().subscribe(msg => {
                 this.lastMessage = msg;
                 this.msgCount++;
-                currentBarChart.series[0].setData([msg.officeTemp, msg.livingRoomTemp, msg.sleepingRoomTemp]);
+                currentBarChart.series[0].setData([msg.officeTemp, msg.livingRoomTemp, msg.sleepingRoomTemp, msg.basementTemp]);
             });
         }, 300);
     }

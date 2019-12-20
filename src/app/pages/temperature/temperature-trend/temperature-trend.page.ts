@@ -19,6 +19,7 @@ export class TemperatureTrendPage implements OnInit {
     private office = [];
     private living = [];
     private sleeping = [];
+    private basement = [];
     private preloading = true;
 
     constructor(private dataProvider: DataProviderWs) {
@@ -36,6 +37,10 @@ export class TemperatureTrendPage implements OnInit {
         }, {
             name: 'Sleeping room',
             color: '#D37515',
+            data: []
+        }, {
+            name: 'basement',
+            color: '#ff8600',
             data: []
         }];
     }
@@ -75,6 +80,7 @@ export class TemperatureTrendPage implements OnInit {
         this.office = [];
         this.living = [];
         this.sleeping = [];
+        this.basement = [];
         this.preloading = true;
         this.tempChart.update({
             series: TemperatureTrendPage.getSeries()
@@ -97,14 +103,17 @@ export class TemperatureTrendPage implements OnInit {
                     this.tempChart.series[0].setData(this.office, true);
                     this.tempChart.series[1].setData(this.living, true);
                     this.tempChart.series[2].setData(this.sleeping, true);
+                    this.tempChart.series[3].setData(this.basement, true);
                 } else if (this.preloading) {
                     this.office.push([date, msg.officeTemp]);
                     this.living.push([date, msg.livingRoomTemp]);
                     this.sleeping.push([date, msg.sleepingRoomTemp]);
+                    this.basement.push([date, msg.basementTemp]);
                 } else {
                     this.tempChart.series[0].addPoint([date, msg.officeTemp]);
                     this.tempChart.series[1].addPoint([date, msg.livingRoomTemp]);
                     this.tempChart.series[2].addPoint([date, msg.sleepingRoomTemp]);
+                    this.tempChart.series[3].addPoint([date, msg.basementTemp]);
                 }
             });
     }

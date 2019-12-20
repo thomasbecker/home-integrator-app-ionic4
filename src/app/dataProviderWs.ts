@@ -28,6 +28,8 @@ export class HomeEnvironmentData {
   sleepingRoomCo2: number;
   sleepingRoomTemp: number;
   sleepingRoomHumidity: number;
+  basementTemp: number;
+  basementHumidity: number;
   heatingLeading: number;
   heatingInlet: number;
   waterTankMiddle: number;
@@ -51,6 +53,8 @@ export class DataProviderWs {
     const sleepingRoomCo2 = parseFloat(data.sleepingRoomCo2.toFixed(2));
     const sleepingRoomTemp = parseFloat(data.sleepingRoomTemp.toFixed(2));
     const sleepingRoomHumidity = parseFloat(data.sleepingRoomHumidity.toFixed(2));
+    const basementTemp = parseFloat(data.basementTemp.toFixed(2));
+    const basementHumidity = parseFloat(data.basementHumidity.toFixed(2));
     const heatingLeading = parseFloat(data.heatingLeading.toFixed(2));
     const heatingInlet = parseFloat(data.heatingInlet.toFixed(2));
     const waterTankMiddle = parseFloat(data.waterTankMiddle.toFixed(2));
@@ -64,6 +68,8 @@ export class DataProviderWs {
       sleepingRoomCo2: sleepingRoomCo2,
       sleepingRoomTemp: sleepingRoomTemp,
       sleepingRoomHumidity: sleepingRoomHumidity,
+      basementTemp: basementTemp,
+      basementHumidity: basementHumidity,
       heatingLeading: heatingLeading,
       heatingInlet: heatingInlet,
       waterTankMiddle: waterTankMiddle,
