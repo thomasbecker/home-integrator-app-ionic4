@@ -48,7 +48,7 @@ export class CurrentHumidityPage implements OnInit {
                 },
                 series: [{
                     name: 'humidity',
-                    data: [{y: 20, color: '#000000'}, {y: 20, color: '#FFE4C4'}, {y: 20, color: '#8B4513'}]
+                    data: [{y: 20, color: '#0099ff'}, {y: 20, color: '#FFE4C4'}, {y: 20, color: '#8B4513'}]
                 }],
             });
 

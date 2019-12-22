@@ -25,15 +25,18 @@ export class HumidityTrendPage implements OnInit {
     private static getSeries() {
         return [{
             name: 'Living room',
-            color: '#ff0000',
+            color: '#0099ff',
+            fillOpacity: 0.3,
             data: []
         }, {
             name: 'Sleeping room',
             color: '#FFE4C4',
+            fillOpacity: 0.6,
             data: []
         }, {
             name: 'Basement',
             color: '#8B4513',
+            fillOpacity: 0.2,
             data: []
         }];
     }
