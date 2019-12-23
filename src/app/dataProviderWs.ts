@@ -3,7 +3,6 @@ import {Observable, ReplaySubject, Subject} from 'rxjs';
 import {addHours, getTime, subHours} from 'date-fns';
 import {WebsocketService} from './websocket.service';
 import {map} from 'rxjs/operators';
-import {log} from 'util';
 
 const POWER_SERVER_URL = 'ws://little:9000';
 const ENVIRONMENT_SERVER_URL = 'ws://little:9001';
@@ -49,7 +48,6 @@ export class DataProviderWs {
     }
 
     private wsService: WebsocketService;
-
 
     private static mapEnvironment(data): HomeEnvironmentData {
         const date = addHours(new Date(data.timestamp), 1);
@@ -97,6 +95,10 @@ export class DataProviderWs {
             return DataProviderWs.mapEnvironment(msg);
         }));
         return DataProviderWs.homeEnvironmentSubject;
+    }
+
+    public resetEnvironmentWithHistorySubscription(): void {
+        DataProviderWs.homeEnvironmentWithHistorySubject = undefined;
     }
 
     public getEnvironmentMessagesWithHistory(timestampStartHistory): Observable<HomeEnvironmentData> {

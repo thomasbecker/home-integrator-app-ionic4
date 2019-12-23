@@ -73,14 +73,11 @@ export class WatertankTemperatureTrendPage implements OnInit {
         this.tempChart.update({
             series: WatertankTemperatureTrendPage.getSeries()
         });
+        this.dataProvider.resetEnvironmentWithHistorySubscription();
         this.subscribeDataProvider(this.dataProvider.getTimestampOfNowSubstracting(hours));
     }
 
     private subscribeDataProvider(newTimestampStartHistory = this.dataProvider.getTimestampOfNowSubstracting(4)) {
-        // if (this.homeEnvironmentData) {
-        //     this.homeEnvironmentData.unsubscribe();
-        // }
-        console.log('received temperature trend');
         this.homeEnvironmentData =
             this.dataProvider.getEnvironmentMessagesWithHistory(newTimestampStartHistory).subscribe(msg => {
                 const date = msg.date.getTime();

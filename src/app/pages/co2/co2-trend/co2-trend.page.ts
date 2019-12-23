@@ -74,16 +74,11 @@ export class Co2TrendPage implements OnInit {
         this.co2TrendChart.update({
             series: Co2TrendPage.getSeries()
         });
+        this.dataProvider.resetEnvironmentWithHistorySubscription();
         this.subscribeDataProvider(this.dataProvider.getTimestampOfNowSubstracting(hours));
     }
 
     private subscribeDataProvider(newTimestampStartHistory = this.dataProvider.getTimestampOfNowSubstracting(4)) {
-        // if (this.homeEnvironmentData) {
-        //     this.homeEnvironmentData.unsubscribe();
-        // }
-
-        console.log('received co2 trend');
-
         this.homeEnvironmentData =
             this.dataProvider.getEnvironmentMessagesWithHistory(newTimestampStartHistory).subscribe(msg => {
                 const date = msg.date.getTime();
