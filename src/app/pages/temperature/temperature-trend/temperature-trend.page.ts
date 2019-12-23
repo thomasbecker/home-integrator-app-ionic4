@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {chart} from 'highcharts';
-import {DataProviderWs, HomeEnvironmentData, HomePowerData} from '../../../dataProviderWs';
+import {DataProviderWs, HomeEnvironmentData} from '../../../dataProviderWs';
 import {Subscription} from 'rxjs';
 import {CommonHighChartsSettings} from '../../CommonHighChartsSettings';
 
@@ -89,9 +89,9 @@ export class TemperatureTrendPage implements OnInit {
     }
 
     private subscribeDataProvider(newTimestampStartHistory = this.dataProvider.getTimestampOfNowSubstracting(4)) {
-        if (this.homeEnvironmentData) {
-            this.homeEnvironmentData.unsubscribe();
-        }
+        // if (this.homeEnvironmentData) {
+        //     this.homeEnvironmentData.unsubscribe();
+        // }
         this.homeEnvironmentData =
             this.dataProvider.getEnvironmentMessagesWithHistory(newTimestampStartHistory).subscribe(msg => {
                 const date = msg.date.getTime();

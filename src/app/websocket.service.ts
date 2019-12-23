@@ -1,37 +1,17 @@
 import {Injectable} from '@angular/core';
-import {Subject, Observable, Observer} from 'rxjs';
+import {Subject, Observable, Observer, ReplaySubject } from 'rxjs';
+import { webSocket } from 'rxjs/webSocket';
+import {multicast} from 'rxjs/operators';
 
 @Injectable()
 export class WebsocketService {
   constructor() {
   }
 
-  public connect(url): Subject<MessageEvent> {
-    const subject = this.create(url);
+  public connect(url): Subject<Object> {
+    const subject = webSocket(url);
     console.log('Successfully connected: ' + url);
-    return subject;
+    subject.next({ message: '1' });
+    return subject.pipe(multicast(() => subject));
   }
-
-  private create(url): Subject<MessageEvent> {
-    const ws = new WebSocket(url);
-    ws.onopen = function () {
-      ws.send('1'); // needed to get the stream going
-    }
-    const observable = Observable.create(
-      (obs: Observer<MessageEvent>) => {
-        ws.onmessage = obs.next.bind(obs);
-        ws.onerror = obs.error.bind(obs);
-        ws.onclose = obs.complete.bind(obs);
-        return ws.close.bind(ws);
-      })
-    const observer = {
-      next: (data: Object) => {
-        if (ws.readyState === WebSocket.OPEN) {
-          ws.send('1');
-        }
-      }
-    }
-    return Subject.create(observer, observable);
-  }
-
 }

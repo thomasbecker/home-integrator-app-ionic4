@@ -90,9 +90,9 @@ export class PowerTrendPage implements OnInit {
     }
 
     private subscribeDataProvider(newTimestampStartHistory = this.dataProvider.getTimestampOfNowSubstracting(4)) {
-        if (this.homePowerData) {
-            this.homePowerData.unsubscribe();
-        }
+        // if (this.homePowerData) {
+        //     this.homePowerData.unsubscribe();
+        // }
 
         this.homePowerData = this.dataProvider.getPowerMessagesWithHistory(newTimestampStartHistory).subscribe(msg => {
             const date = msg.date.getTime();

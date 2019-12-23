@@ -77,9 +77,10 @@ export class HeatingTemperatureTrendPage implements OnInit {
     }
 
     private subscribeDataProvider(newTimestampStartHistory = this.dataProvider.getTimestampOfNowSubstracting(4)) {
-        if (this.homeEnvironmentData) {
-            this.homeEnvironmentData.unsubscribe();
-        }
+        // if (this.homeEnvironmentData) {
+        //     this.homeEnvironmentData.unsubscribe();
+        // }
+        console.log('received heating trend');
         this.homeEnvironmentData =
             this.dataProvider.getEnvironmentMessagesWithHistory(newTimestampStartHistory).subscribe(msg => {
                 const date = msg.date.getTime();
