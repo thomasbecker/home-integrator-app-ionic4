@@ -3,6 +3,7 @@ import {chart} from 'highcharts';
 import {DataProviderWs, HomeEnvironmentData} from '../../../dataProviderWs';
 import {Subscription} from 'rxjs';
 import {CommonHighChartsSettings} from '../../CommonHighChartsSettings';
+import {Rooms} from '../../rooms';
 
 @Component({
     selector: 'humidity-trend',
@@ -25,17 +26,17 @@ export class HumidityTrendPage implements OnInit {
     private static getSeries() {
         return [{
             name: 'Living room',
-            color: '#0099ff',
+            color: Rooms.living.getColor(),
             fillOpacity: 0.3,
             data: []
         }, {
             name: 'Sleeping room',
-            color: '#FFE4C4',
+            color: Rooms.sleeping.getColor(),
             fillOpacity: 0.6,
             data: []
         }, {
             name: 'Basement',
-            color: '#8B4513',
+            color: Rooms.basement.getColor(),
             fillOpacity: 0.2,
             data: []
         }];

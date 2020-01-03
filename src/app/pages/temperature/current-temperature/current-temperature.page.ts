@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {chart} from 'highcharts';
-import {DataProviderWs, HomeEnvironmentData, HomePowerData} from '../../../dataProviderWs';
-import {NavController} from '@ionic/angular';
+import {DataProviderWs, HomeEnvironmentData} from '../../../dataProviderWs';
 import {AppSettings} from '../../../app.settings';
+import {Rooms} from '../../rooms';
 
 
 @Component({
@@ -49,7 +49,12 @@ export class CurrentTemperaturePage implements OnInit {
                 },
                 series: [{
                     name: 'Temperature',
-                    data: [{y: 20, color: '#02FE18'}, {y: 20, color: '#0099ff'}, {y: 20, color: '#FFE4C4'}, {y: 20, color: '#8B4513'}]
+                    data: [
+                        {y: 20, color: Rooms.office.getColor()},
+                        {y: 20, color: Rooms.living.getColor()},
+                        {y: 20, color: Rooms.sleeping.getColor()},
+                        {y: 20, color: Rooms.basement.getColor()}
+                    ]
                 }],
             });
 

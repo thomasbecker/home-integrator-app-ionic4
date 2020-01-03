@@ -3,6 +3,7 @@ import {chart} from 'highcharts';
 import {DataProviderWs, HomeEnvironmentData} from '../../../dataProviderWs';
 import {Subscription} from 'rxjs';
 import {CommonHighChartsSettings} from '../../CommonHighChartsSettings';
+import {Rooms} from '../../rooms';
 
 
 @Component({
@@ -28,19 +29,19 @@ export class TemperatureTrendPage implements OnInit {
     private static getSeries() {
         return [{
             name: 'Office',
-            color: '#02FE18',
+            color: Rooms.office.getColor(),
             data: []
         }, {
             name: 'Living room',
-            color: '#0099ff',
+            color: Rooms.living.getColor(),
             data: []
         }, {
             name: 'Sleeping room',
-            color: '#FFE4C4',
+            color: Rooms.sleeping.getColor(),
             data: []
         }, {
             name: 'Basement',
-            color: '#8B4513',
+            color: Rooms.basement.getColor(),
             data: []
         }];
     }

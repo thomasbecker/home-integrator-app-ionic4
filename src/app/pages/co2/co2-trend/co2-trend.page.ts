@@ -3,6 +3,7 @@ import {chart} from 'highcharts';
 import {DataProviderWs, HomeEnvironmentData} from '../../../dataProviderWs';
 import {Subscription} from 'rxjs';
 import {CommonHighChartsSettings} from '../../CommonHighChartsSettings';
+import {Rooms} from '../../rooms';
 
 
 @Component({
@@ -25,11 +26,11 @@ export class Co2TrendPage implements OnInit {
     private static getSeries() {
         return [{
             name: 'Living room Co2',
-            color: '#ff0000',
+            color: Rooms.living.getColor,
             data: []
         }, {
             name: 'Sleeping room Co2',
-            color: '#0099ff',
+            color: Rooms.sleeping.getColor,
             data: []
         }];
     }

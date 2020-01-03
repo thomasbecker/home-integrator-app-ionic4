@@ -3,6 +3,7 @@ import {NavController} from '@ionic/angular';
 import {chart} from 'highcharts';
 import {DataProviderWs, HomeEnvironmentData} from '../../../dataProviderWs';
 import {AppSettings} from '../../../app.settings';
+import {Rooms} from '../../rooms';
 
 @Component({
     selector: 'current-co2',
@@ -47,7 +48,7 @@ export class CurrentCo2Page implements OnInit {
                 },
                 series: [{
                     name: 'Co2',
-                    data: [{y: 20, color: '#000000'}, {y: 20, color: '#0099ff'}]
+                    data: [{y: 20, color: Rooms.living.getColor()}, {y: 20, color: Rooms.sleeping.getColor()}]
                 }],
             });
 

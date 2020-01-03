@@ -9,7 +9,7 @@ const ENVIRONMENT_SERVER_URL = 'ws://little:9001';
 const POWER_WITH_HISTORY_URL = POWER_SERVER_URL + '/api/homePowerData/5?from=';
 const POWER_LIVE_URL = POWER_SERVER_URL + '/api/homePowerData/live/1';
 const ENVIRONMENT_WITH_HISTORY_URL = ENVIRONMENT_SERVER_URL + '/api/homeEnvironmentData/10?from=';
-const ENVIRONMENT_LIVE_URL = ENVIRONMENT_SERVER_URL + '/api/homeEnvironmentData/live/10';
+const ENVIRONMENT_LIVE_URL = ENVIRONMENT_SERVER_URL + '/api/homeEnvironmentData/live/20';
 
 export class HomePowerData {
     date: Date;

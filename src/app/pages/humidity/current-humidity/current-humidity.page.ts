@@ -3,6 +3,7 @@ import {NavController} from '@ionic/angular';
 import {chart} from 'highcharts';
 import {DataProviderWs, HomeEnvironmentData} from '../../../dataProviderWs';
 import {AppSettings} from '../../../app.settings';
+import {Rooms} from '../../rooms';
 
 
 @Component({
@@ -48,7 +49,11 @@ export class CurrentHumidityPage implements OnInit {
                 },
                 series: [{
                     name: 'humidity',
-                    data: [{y: 20, color: '#0099ff'}, {y: 20, color: '#FFE4C4'}, {y: 20, color: '#8B4513'}]
+                    data: [
+                        {y: 20, color: Rooms.living.getColor()},
+                        {y: 20, color: Rooms.sleeping.getColor()},
+                        {y: 20, color: Rooms.basement.getColor()}
+                    ]
                 }],
             });
 
