@@ -26,11 +26,11 @@ export class Co2TrendPage implements OnInit {
     private static getSeries() {
         return [{
             name: 'Living room Co2',
-            color: Rooms.living.getColor,
+            color: Rooms.living.getColor(),
             data: []
         }, {
             name: 'Sleeping room Co2',
-            color: Rooms.sleeping.getColor,
+            color: Rooms.sleeping.getColor(),
             data: []
         }];
     }

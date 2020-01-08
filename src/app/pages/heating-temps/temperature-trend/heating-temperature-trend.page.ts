@@ -3,6 +3,7 @@ import {chart} from 'highcharts';
 import {DataProviderWs, HomeEnvironmentData} from '../../../dataProviderWs';
 import {Subscription} from 'rxjs';
 import {CommonHighChartsSettings} from '../../CommonHighChartsSettings';
+import {Rooms} from '../../rooms';
 
 
 @Component({
@@ -26,11 +27,11 @@ export class HeatingTemperatureTrendPage implements OnInit {
     private static getSeries() {
         return [{
             name: 'Leading',
-            color: '#02FE18',
+            color: Rooms.leading.getColor(),
             data: []
         }, {
             name: 'Inlet',
-            color: '#D37515',
+            color: Rooms.inlet.getColor(),
             data: []
         }];
     }

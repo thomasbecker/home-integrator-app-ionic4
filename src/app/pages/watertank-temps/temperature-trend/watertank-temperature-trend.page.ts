@@ -3,6 +3,7 @@ import {chart} from 'highcharts';
 import {DataProviderWs, HomeEnvironmentData} from '../../../dataProviderWs';
 import {Subscription} from 'rxjs';
 import {CommonHighChartsSettings} from '../../CommonHighChartsSettings';
+import {Rooms} from '../../rooms';
 
 
 @Component({
@@ -26,11 +27,11 @@ export class WatertankTemperatureTrendPage implements OnInit {
     private static getSeries() {
         return [{
             name: 'Middle Sensor',
-            color: '#02FE18',
+            color: Rooms.watertankMiddle.getColor(),
             data: []
         }, {
             name: 'Bottom Sensor',
-            color: '#D37515',
+            color: Rooms.watertankBottom.getColor(),
             data: []
         }];
     }

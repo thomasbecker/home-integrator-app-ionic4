@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {chart} from 'highcharts';
 import {DataProviderWs, HomeEnvironmentData} from '../../../dataProviderWs';
 import {AppSettings} from '../../../app.settings';
+import {Rooms} from '../../rooms';
 
 
 @Component({
@@ -47,7 +48,10 @@ export class HeatingCurrentTemperaturePage implements OnInit {
                 },
                 series: [{
                     name: 'Temperature',
-                    data: [{y: 20, color: '#02FE18'}, {y: 20, color: '#0099ff'}]
+                    data: [
+                        {y: 20, color: Rooms.leading.getColor()},
+                        {y: 20, color: Rooms.inlet.getColor()}
+                    ]
                 }],
             });
 
