@@ -34,7 +34,7 @@
     "cordova-plugin-whitelist": "^1.3.4",
     "core-js": "^2.6.11",
     "date-fns": "^1.29.0",
-    "highcharts": "6.2.0",
+    "highcharts": "7.2.2",
     "ionic": "^5.4.13",
     "ionic-angular": "^3.9.9",
     "moment": "^2.24.0",
