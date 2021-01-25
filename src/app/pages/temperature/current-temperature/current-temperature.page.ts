@@ -20,7 +20,7 @@ export class CurrentTemperaturePage implements OnInit {
 
     ngOnInit() {
         window.setTimeout(() => { // hack to get responsive width working on initial load
-            const categories = ['Office', 'Living Room', 'Sleeping Room', 'Basement'];
+            const categories = ['Office', 'Living Room', 'Sleeping Room', 'Basement', 'UtilityRoom'];
             const currentBarChart = chart('tempbarchart', {
                 chart: {
                     type: 'bar',
@@ -53,7 +53,8 @@ export class CurrentTemperaturePage implements OnInit {
                         {y: 20, color: Rooms.office.getColor()},
                         {y: 20, color: Rooms.living.getColor()},
                         {y: 20, color: Rooms.sleeping.getColor()},
-                        {y: 20, color: Rooms.basement.getColor()}
+                        {y: 20, color: Rooms.basement.getColor()},
+                        {y: 20, color: Rooms.utilityRoom.getColor()}
                     ]
                 }],
             });
@@ -61,7 +62,8 @@ export class CurrentTemperaturePage implements OnInit {
             this.dataProvider.getEnvironmentMessages().subscribe(msg => {
                 this.lastMessage = msg;
                 this.msgCount++;
-                currentBarChart.series[0].setData([msg.officeTemp, msg.livingRoomTemp, msg.sleepingRoomTemp, msg.basementTemp]);
+                currentBarChart.series[0]
+                    .setData([msg.officeTemp, msg.livingRoomTemp, msg.sleepingRoomTemp, msg.basementTemp, msg.utilityRoomTemp]);
             });
         }, 300);
     }

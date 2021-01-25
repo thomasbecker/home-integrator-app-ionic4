@@ -21,6 +21,7 @@ export class Rooms {
     static readonly sleeping = new Room('sleeping', '#FFE4C4');
     static readonly office = new Room('office', '#02FE18');
     static readonly basement = new Room('basement', '#8B4513');
+    static readonly utilityRoom = new Room('utilityRoom', '#002fa2');
 
     // physically the following ones are not rooms, but from a data structure perspective they fit here. Maybe a new classname would be
     // nice...but not now

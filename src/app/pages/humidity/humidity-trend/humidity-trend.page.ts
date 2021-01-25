@@ -18,6 +18,7 @@ export class HumidityTrendPage implements OnInit {
     private living = [];
     private sleeping = [];
     private basement = [];
+    private utilityRoom = [];
     private preloading = true;
 
     constructor(private dataProvider: DataProviderWs) {
@@ -37,6 +38,11 @@ export class HumidityTrendPage implements OnInit {
         }, {
             name: 'Basement',
             color: Rooms.basement.getColor(),
+            fillOpacity: 0.2,
+            data: []
+        }, {
+            name: 'UtilityRoom',
+            color: Rooms.utilityRoom.getColor(),
             fillOpacity: 0.2,
             data: []
         }];
@@ -77,6 +83,7 @@ export class HumidityTrendPage implements OnInit {
         this.sleeping = [];
         this.living = [];
         this.basement = [];
+        this.utilityRoom = [];
         this.preloading = true;
         this.humidityTrendChart.update({
             series: HumidityTrendPage.getSeries()
@@ -95,14 +102,17 @@ export class HumidityTrendPage implements OnInit {
                 this.humidityTrendChart.series[0].setData(this.living, true);
                 this.humidityTrendChart.series[1].setData(this.sleeping, true);
                 this.humidityTrendChart.series[2].setData(this.basement, true);
+                this.humidityTrendChart.series[3].setData(this.utilityRoom, true);
             } else if (this.preloading) {
                 this.living.push([date, msg.livingRoomHumidity]);
                 this.sleeping.push([date, msg.sleepingRoomHumidity]);
                 this.basement.push([date, msg.basementHumidity]);
+                this.utilityRoom.push([date, msg.utilityRoomHumidity]);
             } else {
                 this.humidityTrendChart.series[0].addPoint([date, msg.livingRoomHumidity]);
                 this.humidityTrendChart.series[1].addPoint([date, msg.sleepingRoomHumidity]);
                 this.humidityTrendChart.series[2].addPoint([date, msg.basementHumidity]);
+                this.humidityTrendChart.series[3].addPoint([date, msg.utilityRoomHumidity]);
             }
         });
     }

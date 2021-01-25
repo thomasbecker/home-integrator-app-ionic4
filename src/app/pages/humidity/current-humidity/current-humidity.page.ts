@@ -20,7 +20,7 @@ export class CurrentHumidityPage implements OnInit {
 
     ngOnInit() {
         window.setTimeout(() => { // hack to get responsive width working on initial load
-            const categories = ['Living room humidity', 'Sleeping room humidity', 'Basement'];
+            const categories = ['Living room humidity', 'Sleeping room humidity', 'Basement', 'UtilityRoom'];
             const currentBarChart = chart('humiditybarchart', {
                 chart: {
                     type: 'bar',
@@ -52,7 +52,8 @@ export class CurrentHumidityPage implements OnInit {
                     data: [
                         {y: 20, color: Rooms.living.getColor()},
                         {y: 20, color: Rooms.sleeping.getColor()},
-                        {y: 20, color: Rooms.basement.getColor()}
+                        {y: 20, color: Rooms.basement.getColor()},
+                        {y: 20, color: Rooms.utilityRoom.getColor()}
                     ]
                 }],
             });
@@ -60,7 +61,8 @@ export class CurrentHumidityPage implements OnInit {
             this.dataProvider.getEnvironmentMessages().subscribe(msg => {
                 this.lastMessage = msg;
                 this.msgCount++;
-                currentBarChart.series[0].setData([msg.livingRoomHumidity, msg.sleepingRoomHumidity, msg.basementHumidity]);
+                currentBarChart.series[0]
+                    .setData([msg.livingRoomHumidity, msg.sleepingRoomHumidity, msg.basementHumidity, msg.utilityRoomHumidity]);
             });
         }, 300);
     }

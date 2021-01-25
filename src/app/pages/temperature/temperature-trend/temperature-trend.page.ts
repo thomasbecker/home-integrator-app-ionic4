@@ -21,6 +21,7 @@ export class TemperatureTrendPage implements OnInit {
     private living = [];
     private sleeping = [];
     private basement = [];
+    private utilityRoom = [];
     private preloading = true;
 
     constructor(private dataProvider: DataProviderWs) {
@@ -42,6 +43,10 @@ export class TemperatureTrendPage implements OnInit {
         }, {
             name: 'Basement',
             color: Rooms.basement.getColor(),
+            data: []
+        }, {
+            name: 'UtilityRoom',
+            color: Rooms.utilityRoom.getColor(),
             data: []
         }];
     }
@@ -82,6 +87,7 @@ export class TemperatureTrendPage implements OnInit {
         this.living = [];
         this.sleeping = [];
         this.basement = [];
+        this.utilityRoom = [];
         this.preloading = true;
         this.tempChart.update({
             series: TemperatureTrendPage.getSeries()
@@ -103,16 +109,19 @@ export class TemperatureTrendPage implements OnInit {
                     this.tempChart.series[1].setData(this.living, true);
                     this.tempChart.series[2].setData(this.sleeping, true);
                     this.tempChart.series[3].setData(this.basement, true);
+                    this.tempChart.series[4].setData(this.utilityRoom, true);
                 } else if (this.preloading) {
                     this.office.push([date, msg.officeTemp]);
                     this.living.push([date, msg.livingRoomTemp]);
                     this.sleeping.push([date, msg.sleepingRoomTemp]);
                     this.basement.push([date, msg.basementTemp]);
+                    this.utilityRoom.push([date, msg.utilityRoomTemp]);
                 } else {
                     this.tempChart.series[0].addPoint([date, msg.officeTemp]);
                     this.tempChart.series[1].addPoint([date, msg.livingRoomTemp]);
                     this.tempChart.series[2].addPoint([date, msg.sleepingRoomTemp]);
                     this.tempChart.series[3].addPoint([date, msg.basementTemp]);
+                    this.tempChart.series[4].addPoint([date, msg.utilityRoomTemp]);
                 }
             });
     }
