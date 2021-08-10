@@ -17,11 +17,12 @@ export class Room {
 }
 
 export class Rooms {
-    static readonly living = new Room('living', '#0099ff');
-    static readonly sleeping = new Room('sleeping', '#FFE4C4');
-    static readonly office = new Room('office', '#02FE18');
-    static readonly basement = new Room('basement', '#8B4513');
-    static readonly utilityRoom = new Room('utilityRoom', '#002fa2');
+    static readonly living = new Room('Living Room', '#0099ff');
+    static readonly sleeping = new Room('Sleeping Room', '#FFE4C4');
+    static readonly mobile = new Room('Mobile', '#c49200');
+    static readonly office = new Room('Office', '#02FE18');
+    static readonly basement = new Room('Basement', '#8B4513');
+    static readonly utilityRoom = new Room('Utility Room', '#002fa2');
 
     // physically the following ones are not rooms, but from a data structure perspective they fit here. Maybe a new classname would be
     // nice...but not now

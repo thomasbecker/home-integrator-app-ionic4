@@ -19,7 +19,7 @@ export class CurrentCo2Page implements OnInit {
 
     ngOnInit() {
         window.setTimeout(() => { // hack to get responsive width working on initial load
-            const categories = ['Living room', 'Sleeping room'];
+            const categories = ['Living room', 'Sleeping room', 'mobile'];
             const currentBarChart = chart('co2barchart', {
                 chart: {
                     type: 'bar',
@@ -48,14 +48,17 @@ export class CurrentCo2Page implements OnInit {
                 },
                 series: [{
                     name: 'Co2',
-                    data: [{y: 20, color: Rooms.living.getColor()}, {y: 20, color: Rooms.sleeping.getColor()}]
+                    data: [
+                        {y: 20, color: Rooms.living.getColor()},
+                        {y: 20, color: Rooms.sleeping.getColor()},
+                        {y: 20, color: Rooms.mobile.getColor()}]
                 }],
             });
 
             this.dataProvider.getEnvironmentMessages().subscribe(msg => {
                 this.msgCount++;
                 this.lastMessage = msg;
-                currentBarChart.series[0].setData([msg.livingRoomCo2, msg.sleepingRoomCo2]);
+                currentBarChart.series[0].setData([msg.livingRoomCo2, msg.sleepingRoomCo2, msg.mobileCo2]);
             });
         }, 30);
     }

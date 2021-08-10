@@ -18,6 +18,7 @@ export class Co2TrendPage implements OnInit {
     private homeEnvironmentData: Subscription;
     private living = [];
     private sleeping = [];
+    private mobile = [];
     private preloading = true;
 
     constructor(private dataProvider: DataProviderWs) {
@@ -25,12 +26,16 @@ export class Co2TrendPage implements OnInit {
 
     private static getSeries() {
         return [{
-            name: 'Living room Co2',
+            name: Rooms.living.getName(),
             color: Rooms.living.getColor(),
             data: []
         }, {
-            name: 'Sleeping room Co2',
+            name: Rooms.sleeping.getName(),
             color: Rooms.sleeping.getColor(),
+            data: []
+        }, {
+            name: Rooms.mobile.getName(),
+            color: Rooms.mobile.getColor(),
             data: []
         }];
     }
@@ -71,6 +76,7 @@ export class Co2TrendPage implements OnInit {
         this.msgCount = 0;
         this.living = [];
         this.sleeping = [];
+        this.mobile = [];
         this.preloading = true;
         this.co2TrendChart.update({
             series: Co2TrendPage.getSeries()
@@ -90,12 +96,15 @@ export class Co2TrendPage implements OnInit {
                     this.preloading = false;
                     this.co2TrendChart.series[0].setData(this.living, true);
                     this.co2TrendChart.series[1].setData(this.sleeping, true);
+                    this.co2TrendChart.series[2].setData(this.mobile, true);
                 } else if (this.preloading) {
                     this.living.push([date, msg.livingRoomCo2]);
                     this.sleeping.push([date, msg.sleepingRoomCo2]);
+                    this.mobile.push([date, msg.mobileCo2]);
                 } else {
                     this.co2TrendChart.series[0].addPoint([date, msg.livingRoomCo2]);
                     this.co2TrendChart.series[1].addPoint([date, msg.sleepingRoomCo2]);
+                    this.co2TrendChart.series[2].addPoint([date, msg.mobileCo2]);
                 }
             });
 

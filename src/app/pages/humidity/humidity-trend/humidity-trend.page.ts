@@ -19,33 +19,41 @@ export class HumidityTrendPage implements OnInit {
     private sleeping = [];
     private basement = [];
     private utilityRoom = [];
+    private mobile = [];
     private preloading = true;
 
     constructor(private dataProvider: DataProviderWs) {
     }
 
     private static getSeries() {
-        return [{
-            name: 'Living room',
-            color: Rooms.living.getColor(),
-            fillOpacity: 0.3,
-            data: []
-        }, {
-            name: 'Sleeping room',
-            color: Rooms.sleeping.getColor(),
-            fillOpacity: 0.6,
-            data: []
-        }, {
-            name: 'Basement',
-            color: Rooms.basement.getColor(),
-            fillOpacity: 0.2,
-            data: []
-        }, {
-            name: 'UtilityRoom',
-            color: Rooms.utilityRoom.getColor(),
-            fillOpacity: 0.2,
-            data: []
-        }];
+        return [
+            {
+                name: Rooms.living.getName(),
+                color: Rooms.living.getColor(),
+                fillOpacity: 0.3,
+                data: []
+            }, {
+                name: Rooms.sleeping.getName(),
+                color: Rooms.sleeping.getColor(),
+                fillOpacity: 0.6,
+                data: []
+            }, {
+                name: Rooms.basement.getName(),
+                color: Rooms.basement.getColor(),
+                fillOpacity: 0.2,
+                data: []
+            }, {
+                name: Rooms.utilityRoom.getName(),
+                color: Rooms.utilityRoom.getColor(),
+                fillOpacity: 0.2,
+                data: []
+            }, {
+                name: Rooms.mobile.getName(),
+                color: Rooms.mobile.getColor(),
+                fillOpacity: 0.2,
+                data: []
+            }
+        ];
     }
 
     ngOnInit() {
@@ -84,6 +92,7 @@ export class HumidityTrendPage implements OnInit {
         this.living = [];
         this.basement = [];
         this.utilityRoom = [];
+        this.mobile = [];
         this.preloading = true;
         this.humidityTrendChart.update({
             series: HumidityTrendPage.getSeries()
@@ -103,16 +112,19 @@ export class HumidityTrendPage implements OnInit {
                 this.humidityTrendChart.series[1].setData(this.sleeping, true);
                 this.humidityTrendChart.series[2].setData(this.basement, true);
                 this.humidityTrendChart.series[3].setData(this.utilityRoom, true);
+                this.humidityTrendChart.series[4].setData(this.mobile, true);
             } else if (this.preloading) {
                 this.living.push([date, msg.livingRoomHumidity]);
                 this.sleeping.push([date, msg.sleepingRoomHumidity]);
                 this.basement.push([date, msg.basementHumidity]);
                 this.utilityRoom.push([date, msg.utilityRoomHumidity]);
+                this.mobile.push([date, msg.mobileHumidity]);
             } else {
                 this.humidityTrendChart.series[0].addPoint([date, msg.livingRoomHumidity]);
                 this.humidityTrendChart.series[1].addPoint([date, msg.sleepingRoomHumidity]);
                 this.humidityTrendChart.series[2].addPoint([date, msg.basementHumidity]);
                 this.humidityTrendChart.series[3].addPoint([date, msg.utilityRoomHumidity]);
+                this.humidityTrendChart.series[4].addPoint([date, msg.mobileHumidity]);
             }
         });
     }
