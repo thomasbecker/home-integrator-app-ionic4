@@ -3,10 +3,10 @@ import { Routes, RouterModule } from '@angular/router';
 import {ComponentsModule} from './components/components.module';
 
 const routes: Routes = [
-  { path: '', loadChildren: './tabs/tabs.module#TabsPageModule' }
+  { path: '', loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule) }
 ];
 @NgModule({
-  imports: [RouterModule.forRoot(routes), ComponentsModule],
+  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }), ComponentsModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}

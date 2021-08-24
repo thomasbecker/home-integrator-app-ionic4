@@ -26,11 +26,11 @@ export class HeatpumpPvCoveragePage implements OnInit {
         }, 300);
     }
 
-    private getMonthBy(name: string) {
+    getMonthBy(name: string) {
         return moment().month(name).format('M');
     }
 
-    private renderGraph(month: number = this.currentMonth, year: number = this.currentYear) {
+    renderGraph(month: number = this.currentMonth, year: number = this.currentYear) {
         let tickinterval;
         if (month === -1) {
             tickinterval = 28 * 24 * 3600 * 1000;

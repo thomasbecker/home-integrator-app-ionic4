@@ -12,8 +12,8 @@ import {Rooms} from '../../rooms';
     styleUrls: ['current-humidity.page.scss']
 })
 export class CurrentHumidityPage implements OnInit {
-    private lastMessage: HomeEnvironmentData = new HomeEnvironmentData();
-    private msgCount = 0;
+    lastMessage: HomeEnvironmentData = new HomeEnvironmentData();
+    msgCount = 0;
 
     constructor(public navCtrl: NavController, private dataProvider: DataProviderWs) {
     }

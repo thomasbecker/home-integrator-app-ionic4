@@ -11,8 +11,8 @@ import {Rooms} from '../../rooms';
     styleUrls: ['current-co2.page.scss']
 })
 export class CurrentCo2Page implements OnInit {
-    private lastMessage: HomeEnvironmentData = new HomeEnvironmentData();
-    private msgCount = 0;
+    lastMessage: HomeEnvironmentData = new HomeEnvironmentData();
+    msgCount = 0;
 
     constructor(public navCtrl: NavController, private dataProvider: DataProviderWs) {
     }

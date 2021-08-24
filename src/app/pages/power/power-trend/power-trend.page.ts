@@ -16,8 +16,8 @@ export class PowerTrendPage implements OnInit {
     constructor(private dataProvider: DataProviderWs) {
     }
 
-    private lastMessage: HomePowerData = new HomePowerData();
-    private msgCount = 0;
+    lastMessage: HomePowerData = new HomePowerData();
+    msgCount = 0;
     private powerTrendChart;
     private homePowerData: Subscription;
     private heatBuffer = [];

@@ -11,8 +11,8 @@ import {AppSettings} from '../../../app.settings';
 })
 export class CurrentPowerPage implements OnInit {
 
-    private lastMessage: HomePowerData = new HomePowerData();
-    private msgCount = 0;
+    lastMessage: HomePowerData = new HomePowerData();
+    msgCount = 0;
     private barChart: chart;
 
     constructor(private dataProvider: DataProviderWs, private platform: Platform) {

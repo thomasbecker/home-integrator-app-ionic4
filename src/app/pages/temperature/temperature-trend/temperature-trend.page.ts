@@ -13,8 +13,8 @@ import {Rooms} from '../../rooms';
 })
 export class TemperatureTrendPage implements OnInit {
 
-    private lastMessage: HomeEnvironmentData = new HomeEnvironmentData();
-    private msgCount = 0;
+    lastMessage: HomeEnvironmentData = new HomeEnvironmentData();
+    msgCount = 0;
     private tempChart;
     private homeEnvironmentData: Subscription;
     private office = [];

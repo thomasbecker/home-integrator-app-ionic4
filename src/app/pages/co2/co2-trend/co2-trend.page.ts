@@ -12,8 +12,8 @@ import {Rooms} from '../../rooms';
     styleUrls: ['co2-trend.page.scss']
 })
 export class Co2TrendPage implements OnInit {
-    private lastMessage: HomeEnvironmentData = new HomeEnvironmentData();
-    private msgCount = 0;
+    lastMessage: HomeEnvironmentData = new HomeEnvironmentData();
+    msgCount = 0;
     private co2TrendChart;
     private homeEnvironmentData: Subscription;
     private living = [];

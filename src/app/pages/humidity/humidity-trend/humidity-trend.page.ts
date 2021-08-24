@@ -11,8 +11,8 @@ import {Rooms} from '../../rooms';
     styleUrls: ['humidity-trend.page.scss']
 })
 export class HumidityTrendPage implements OnInit {
-    private msgCount = 0;
-    private lastMessage: HomeEnvironmentData = new HomeEnvironmentData();
+    msgCount = 0;
+    lastMessage: HomeEnvironmentData = new HomeEnvironmentData();
     private humidityTrendChart;
     private homeEnvironmentData: Subscription;
     private living = [];

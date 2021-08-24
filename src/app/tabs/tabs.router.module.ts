@@ -13,7 +13,7 @@ const routes: Routes = [
                 children: [
                     {
                         path: '',
-                        loadChildren: '../pages/power/current-power/current-power.module#CurrentPowerPageModule'
+                        loadChildren: () => import('../pages/power/current-power/current-power.module').then(m => m.CurrentPowerPageModule)
                     }
                 ]
             },
@@ -22,7 +22,8 @@ const routes: Routes = [
                 children: [
                     {
                         path: '',
-                        loadChildren: '../pages/temperature/current-temperature/current-temperature.module#CurrentTemperaturePageModule'
+                        loadChildren: () => import('../pages/temperature/current-temperature/current-temperature.module')
+                            .then(m => m.CurrentTemperaturePageModule)
                     }
                 ]
             },
@@ -31,7 +32,7 @@ const routes: Routes = [
                 children: [
                     {
                         path: '',
-                        loadChildren: '../pages/co2/current-co2/current-co2.module#CurrentCo2PageModule'
+                        loadChildren: () => import('../pages/co2/current-co2/current-co2.module').then(m => m.CurrentCo2PageModule)
                     }
                 ]
             },
@@ -40,7 +41,8 @@ const routes: Routes = [
                 children: [
                     {
                         path: '',
-                        loadChildren: '../pages/humidity/current-humidity/current-humidity.module#CurrentHumidityPageModule'
+                        loadChildren: () => import('../pages/humidity/current-humidity/current-humidity.module')
+                            .then(m => m.CurrentHumidityPageModule)
                     }
                 ]
             },
@@ -49,9 +51,8 @@ const routes: Routes = [
                 children: [
                     {
                         path: '',
-                        loadChildren:
-                            '../pages/heating-temps/current-temperature/heating-current-temperature.module' +
-                            '#HeatingCurrentTemperaturePageModule'
+                        loadChildren: () => import('../pages/heating-temps/current-temperature/heating-current-temperature.module')
+                            .then(m => m.HeatingCurrentTemperaturePageModule)
                     }
                 ]
             },
@@ -60,9 +61,8 @@ const routes: Routes = [
                 children: [
                     {
                         path: '',
-                        loadChildren:
-                            '../pages/watertank-temps/current-temperature/watertank-current-temperature.module' +
-                            '#WatertankCurrentTemperaturePageModule'
+                        loadChildren: () => import('../pages/watertank-temps/current-temperature/watertank-current-temperature.module')
+                            .then(m => m.WatertankCurrentTemperaturePageModule)
                     }
                 ]
             },
@@ -71,8 +71,8 @@ const routes: Routes = [
                 children: [
                     {
                         path: '',
-                        loadChildren:
-                            '../pages/heatpump-pv-coverage/heatpump-pv-coverage.module#HeatpumpPvCoveragePageModule'
+                        loadChildren: () => import('../pages/heatpump-pv-coverage/heatpump-pv-coverage.module')
+                            .then(m => m.HeatpumpPvCoveragePageModule)
                     }
                 ]
             },
