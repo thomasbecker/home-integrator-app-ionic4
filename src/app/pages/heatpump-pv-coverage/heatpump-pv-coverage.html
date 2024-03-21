@@ -1,24 +1,33 @@
 <ion-header>
-    <ion-toolbar>
-        <ion-title>Heatpump PV Coverage</ion-title>
-    </ion-toolbar>
+  <ion-toolbar>
+    <ion-title>Heatpump PV Coverage</ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-    <h2>Heatpump PV Coverage</h2>
-    <div id="content">
-        <div id="heatpumppvcoverage">
-        </div>
-        <span *ngFor="let month of months">
-            <button ion-button color="light" (click)="renderGraph(getMonthBy(month), 2019)">{{month}}</button>
-        </span>
-    </div>
-    <div>
-        <span *ngFor="let year of years">
-            <button ion-button color="light" (click)="renderGraph(-1, year)">{{year}}</button>
-        </span>
-    </div>
-    <div>
-        <button ion-button color="light" (click)="renderGraph(-1, -1)">total</button>
-    </div>
+  <h2>Heatpump PV Coverage</h2>
+  <div id="content">
+    <div id="heatpumppvcoverage"></div>
+    <span *ngFor="let month of months">
+      <button
+        ion-button
+        color="light"
+        (click)="renderGraph(getMonthBy(month), 2023)"
+      >
+        {{month}}
+      </button>
+    </span>
+  </div>
+  <div>
+    <span *ngFor="let year of years">
+      <button ion-button color="light" (click)="renderGraph(-1, year)">
+        {{year}}
+      </button>
+    </span>
+  </div>
+  <div>
+    <button ion-button color="light" (click)="renderGraph(-1, -1)">
+      total
+    </button>
+  </div>
 </ion-content>
